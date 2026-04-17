@@ -18,8 +18,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from operations.corpus_map import compute_corpus_map
+from operations.eigendirections import compute_eigendirections
 
-app = FastAPI(title="Theoryscope Backend", version="0.0.1")
+app = FastAPI(title="Theoryscope Backend", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -33,28 +34,48 @@ class CorpusMapRequest(BaseModel):
     corpus_name: str = "philosophy-of-technology-v1"
 
 
+class EigendirectionsRequest(BaseModel):
+    corpus_name: str = "philosophy-of-technology-v1"
+    n_components: int = 6
+    n_loadings: int = 5
+
+
 @app.get("/status")
 async def status():
     return {
         "status": "ok",
         "tool": "theoryscope",
-        "version": "0.0.1",
-        "phase": 0,
+        "version": "0.1.0",
+        "phase": 1,
         "corpora_available": ["philosophy-of-technology-v1"],
+        "operations_available": ["corpus_map", "eigendirections"],
     }
 
 
 @app.post("/corpus-map")
 async def corpus_map(req: CorpusMapRequest):
-    if req.corpus_name != "philosophy-of-technology-v1":
-        raise HTTPException(
-            status_code=404,
-            detail=f"Corpus '{req.corpus_name}' not available in Phase 0.",
-        )
     try:
         result = await asyncio.to_thread(compute_corpus_map, req.corpus_name)
         return result
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:  # noqa: BLE001 — surface real error to the UI
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/eigendirections")
+async def eigendirections(req: EigendirectionsRequest):
+    try:
+        result = await asyncio.to_thread(
+            compute_eigendirections,
+            req.corpus_name,
+            req.n_components,
+            req.n_loadings,
+        )
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=500, detail=str(e))
 
 

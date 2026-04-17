@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CorpusMap } from "@/components/operations/CorpusMap";
+import { Eigendirections } from "@/components/operations/Eigendirections";
 import { CorpusLoader } from "@/components/layout/CorpusLoader";
 import { Header } from "@/components/layout/Header";
 import { StatusBar } from "@/components/layout/StatusBar";
@@ -16,7 +17,7 @@ type Tab = {
 
 const TABS: Tab[] = [
   { key: "corpus-map", label: "Corpus Map", group: "Inspect", component: <CorpusMap /> },
-  { key: "eigendirections", label: "Eigendirections", group: "Inspect", component: null },
+  { key: "eigendirections", label: "Eigendirections", group: "Inspect", component: <Eigendirections /> },
   { key: "concept-locator", label: "Concept Locator", group: "Inspect", component: null },
   { key: "author-constellation", label: "Author Constellation", group: "Inspect", component: null },
   { key: "coarse-graining", label: "Coarse-Graining Trajectory", group: "Flow", component: null },
