@@ -30,7 +30,7 @@ export function CorpusSourcePanel() {
           className={[
             "px-2.5 py-1 text-xs uppercase tracking-wide border transition-colors",
             selected.kind === "hardcoded"
-              ? "border-burgundy text-ink bg-white/60"
+              ? "border-gold text-ink bg-white/60"
               : "border-ink/20 text-ink/70 bg-white/40 hover:bg-white/60",
           ].join(" ")}
         >
@@ -42,7 +42,7 @@ export function CorpusSourcePanel() {
           className={[
             "px-2.5 py-1 text-xs uppercase tracking-wide border transition-colors",
             selected.kind === "zotero"
-              ? "border-burgundy text-ink bg-white/60"
+              ? "border-gold text-ink bg-white/60"
               : "border-ink/20 text-ink/70 bg-white/40 hover:bg-white/60",
           ].join(" ")}
         >
@@ -206,7 +206,7 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
                   type="button"
                   onClick={() => void fetchCollections()}
                   disabled={busy || !libraryId.trim() || !apiKey.trim()}
-                  className="px-3 py-1.5 text-sm bg-burgundy text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-burgundy-700"
+                  className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-gold-700"
                 >
                   {busy ? "Connecting…" : "Connect"}
                 </button>
@@ -233,7 +233,7 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
                     type="button"
                     onClick={() => void reloadCollections()}
                     disabled={busy}
-                    className="px-3 py-1.5 text-sm bg-burgundy text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-burgundy-700"
+                    className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-gold-700"
                   >
                     {busy ? "Loading…" : "Load collections"}
                   </button>

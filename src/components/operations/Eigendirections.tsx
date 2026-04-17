@@ -125,7 +125,7 @@ function Controls({
         type="button"
         onClick={onRun}
         disabled={disabled}
-        className="ml-auto px-4 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+        className="ml-auto px-4 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
       >
         {disabled ? "Computing…" : "Compute"}
       </button>
@@ -157,7 +157,7 @@ function NumberControl({
           step={1}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-40 accent-burgundy"
+          className="w-40 accent-gold"
         />
         <span className="font-mono text-ink tabular-nums w-6 text-right">
           {value}
@@ -281,7 +281,7 @@ function VarianceBar({ fraction }: { fraction: number }) {
       aria-valuenow={Math.round(pct)}
     >
       <div
-        className="h-full bg-burgundy"
+        className="h-full bg-gold"
         style={{ width: `${pct}%` }}
       />
     </div>

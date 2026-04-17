@@ -19,8 +19,6 @@ Theoryscope is a web-based research tool that treats a corpus of theoretical tex
 
 The tool is designed for critical inquiry into the geometry of intellectual fields, not bibliometric measurement. Where existing computational literature tools (citation graph analyses, topic models, bibliometric dashboards) count and cluster surface features, Theoryscope provides an instrument for making visible the gap between what a field says it is about and what its geometry suggests it is about.
 
-> Theoryscope is part of the [Vector Lab](https://github.com/dmberry) family of research instruments, alongside [Manifold Atlas](https://github.com/dmberry/manifold-atlas), [Vectorscope](https://github.com/dmberry/vectorscope), and [LLMbench](https://github.com/dmberry/LLMbench). The four tools share an editorial design system, an open-weight-only methodology, and a commitment to making the geometry of meaning legible for critical analysis. They diverge in their object: Manifold Atlas compares output geometries between models, Vectorscope inspects the internals of a single open-weight model, LLMbench reads the surface of model outputs as prose, and Theoryscope maps the geometry of a corpus of theoretical texts.
-
 ## Scholarly Context
 
 Theoryscope emerges from the convergence of three research programmes.
@@ -45,32 +43,30 @@ The difference between a **chat model** and an **embedding model** is relevant h
 
 ## Operations at a Glance
 
-Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas).
+Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas). Live at v0.3.0: all three Inspect anchors, three Flow operations, three Critique operations.
 
-| Group | Operation | Core question |
-|---|---|---|
-| **Inspect** | Corpus Map | What does the cloud look like? |
-| Inspect | Eigendirections | What are the principal axes of the field? |
-| Inspect | Concept Locator | Where does this concept sit, and along which axis does it vary? |
-| Inspect | Author Constellation | How do authors differ and where do they concentrate? |
-| **Flow** | Coarse-Graining Trajectory | How do points move under successive coarse-grainings? |
-| Flow | Fixed Point Finder | Where does the flow stop? |
-| Flow | Relevant / Irrelevant Operator Spectrum | Which concepts persist and which wash out? |
-| Flow | Universality Class Finder | Which starting positions converge to the same endpoint? |
-| Flow | Temporal RG Flow | How do the principal axes shift across decades? |
-| **Critique** | Symmetry Breaking Map | Where does the field fragment, and along which axis? |
-| Critique | Phase Diagram | What does the flow field look like as a whole? |
-| Critique | Embedding Dependence Probe | Do these results survive a different embedding? |
-| Critique | Perturbation Test | How robust is this result to a small change in the corpus? |
-| Critique | Forgetting Curve | How fragile are these eigendirections under bootstrap? |
-| Critique | Translated Corpus Probe | What survives translation? |
-| Critique | Corpus-vs-Model Probe | Do the eigendirections of a corpus match those of a model trained on it? |
-| **Annotations** | Critical Annotations Layer | Markdown notes attached to any geometric feature, exported with the result. |
-| **Atlas** | Curated pre-run analyses on named corpora, with provenance and annotations. |
+| Group | Operation | Status | Core question |
+|---|---|---|---|
+| **Inspect** | Corpus Map | ✅ live | What does the cloud look like? |
+| Inspect | Eigendirections | ✅ live | What are the principal axes of the field? |
+| Inspect | Concept Locator | ⏳ planned | Where does this concept sit, and along which axis does it vary? |
+| Inspect | Author Constellation | ⏳ planned | How do authors differ and where do they concentrate? |
+| **Flow** | Coarse-Graining Trajectory | ✅ live | How do points move under successive coarse-grainings? |
+| Flow | Fixed Point Finder | ✅ live | Where does the flow stop? |
+| Flow | Universality Class Finder | ✅ live | Which starting positions converge to the same endpoint? |
+| Flow | Relevant / Irrelevant Operator Spectrum | ⏳ planned | Which concepts persist and which wash out? |
+| Flow | Temporal RG Flow | ⏳ planned | How do the principal axes shift across decades? |
+| **Critique** | Embedding Dependence Probe | ✅ live | Do these results survive a different embedding? |
+| Critique | Perturbation Test | ✅ live | How robust is this result to a small change in the corpus? |
+| Critique | Forgetting Curve | ✅ live | How fragile are these eigendirections under bootstrap? |
+| Critique | Symmetry Breaking Map | ⏳ planned | Where does the field fragment, and along which axis? |
+| Critique | Phase Diagram | ⏳ planned | What does the flow field look like as a whole? |
+| Critique | Translated Corpus Probe | ⏳ planned | What survives translation? |
+| Critique | Corpus-vs-Model Probe | ⏳ planned | Do the eigendirections of a corpus match those of a model trained on it? |
+| **Annotations** | Critical Annotations Layer | ⏳ planned | Markdown notes attached to any geometric feature, exported with the result. |
+| **Atlas** | Curated pre-run analyses | ⏳ planned | Curated entries on named corpora, with provenance and annotations. |
 
-All operations carry a provenance record (corpus hash, embedding model, chunking spec, coarse-graining operator, optional stability score) that travels with every export.
-
-Phase 0 ships with Corpus Map only. The other operations are stubbed and land in subsequent phases.
+All live operations carry a provenance record (corpus hash, embedding model, chunking spec, coarse-graining operator, optional stability score) that travels with every export. Results from the three Critique operations are recorded in the same format so that any downstream claim about the corpus can be cross-checked for robustness.
 
 ## Inspect Mode
 
@@ -78,28 +74,28 @@ The opening workspace. Load a corpus, watch it appear as geometry, read its prin
 
 ### Core features
 
-- **Open-weight embeddings.** Theoryscope does not use commercial embedding APIs. Phase 0 uses `sentence-transformers/all-MiniLM-L6-v2` as the default embedder. Later phases will delegate to a running Vectorscope session when one is available, and will support comparative runs under multiple embedding models.
-- **Corpus as a cloud.** Each document is a point in a high-dimensional embedding space. The Corpus Map projects to three dimensions via PCA and renders the cloud as a 3D scatter in Plotly, with documents coloured by year and labelled by author.
-- **Annotated eigendirections.** Each principal component is annotated with the documents that load most positively and most negatively on it. The critical use is comparison with the field's debated oppositions: computed axes and debated axes rarely match, and the gap is diagnostic.
-- **Concept locator.** Enter a short text or concept. The tool embeds it into the same space, returns the nearest documents and authors, and reports the eigenvector most aligned with the query.
-- **Author constellations.** Aggregate an author's corpus to a single centroid with intra-author spread. Overlay multiple authors on the same eigenbasis to compare their constellations.
-- **Provenance record.** Every Corpus Map view has a deep-dive panel exposing the full provenance JSON: corpus source, document IDs, embedding model and dimension, chunking spec, ingestion timestamp, and SHA-256 corpus hash.
+- **Open-weight embeddings.** Following the commitment to make every parameter inspectable, Theoryscope does not use commercial embedding APIs. The default embedder is `sentence-transformers/all-MiniLM-L6-v2`; the Embedding Dependence Probe uses `all-mpnet-base-v2` and `BAAI/bge-small-en-v1.5` as alternatives. All embedding models run locally via `sentence-transformers`.
+- **Corpus as a cloud.** ✅ Each document is a point in a high-dimensional embedding space. The Corpus Map projects to three dimensions via PCA and renders the cloud as a 3D scatter in Plotly, with documents coloured by year and labelled by author.
+- **Annotated eigendirections.** ✅ Each principal component is annotated with the documents that load most positively and most negatively on it. The critical use is comparison with the field's debated oppositions: computed axes and debated axes rarely match, and the gap is diagnostic.
+- **Concept locator.** ⏳ Enter a short text or concept. The tool embeds it into the same space, returns the nearest documents and authors, and reports the eigenvector most aligned with the query.
+- **Author constellations.** ⏳ Aggregate an author's corpus to a single centroid with intra-author spread. Overlay multiple authors on the same eigenbasis to compare their constellations.
+- **Provenance record.** ✅ Every operation view has a deep-dive panel exposing the full provenance JSON: corpus source, document IDs, embedding model and dimension, chunking spec, ingestion timestamp, and SHA-256 corpus hash. The `ExportButton` downloads the full operation result with its provenance as a timestamped JSON file.
 
 ## Flow Modes
 
 The second tab group. Coarse-grain the corpus, watch it flow, locate its fixed points.
 
-### Coarse-Graining Trajectory
-Applies a chosen coarse-graining operator in stepwise passes, animating how points move. The operator is visible on screen with its parameters. Four operators are supported: aggregative (documents to authors to traditions), semantic (LLM-mediated paraphrase at increasing abstraction), lexical (technical vocabulary to everyday synonyms), and citation-graph (documents that cite each other as candidates for aggregative merging). Phase 0 implements aggregative only; the others land in later phases.
+### Coarse-Graining Trajectory ✅
+Applies a coarse-graining operator in stepwise passes, animating how points move. The operator is visible on screen with its parameters at every step. v0.3.0 implements the aggregative operator (progressive k-means with a log-spaced schedule from the full corpus down to two clusters); the semantic, lexical, and citation-graph operators are planned. A Play/Pause scrubber and clickable schedule bar let the user step through the flow manually.
 
-### Fixed Point Finder
-Iterates the coarse-graining until positions stop moving within a tolerance. Returns the fixed points and the basin of attraction each starting point fell into. Basins are rendered as shaded regions of the corpus map, fixed points marked and labelled.
+### Fixed Point Finder ✅
+Iterates the flow to its terminal step and reports the basins every document falls into. Basins are the fixed points of the flow: positions that do not move under further coarse-graining within the terminal cluster count. The terminal map is rendered with basins colour-coded; clicking a basin card highlights its members on the map. Each basin lists its population, exemplar document (the member closest to the basin centroid), and full member list.
 
 ### Relevant / Irrelevant Operator Spectrum
 For a user-supplied or auto-extracted list of concepts, ranks each by whether its role in discriminating texts grows or shrinks under coarse-graining. Relevant operators persist at every scale; irrelevant operators wash out. The critical interpretation is the reader's; the tool reports the pattern.
 
-### Universality Class Finder
-Clusters corpus points by the fixed point they flow to, rather than by surface embedding. Highlights hidden affinities (positions that look opposed but converge) and hidden divergences (positions that look similar but diverge).
+### Universality Class Finder ✅
+Clusters corpus points by the fixed point they flow to, rather than by surface embedding. Classes are ranked by ascending surface mean cosine: a class whose members were surface-different but converge on the same basin is the universality-class finding worth inspecting. Each class card shows a universality bar (1 − surface cosine) so the relative universality of classes is legible at a glance.
 
 ### Temporal RG Flow
 Coarse-grains the corpus by time window rather than by semantic or aggregative operator. Watches how eigendirections shift across decades. Shows how the principal axes of a field change over time, which is distinct from how they respond to semantic abstraction.
@@ -114,14 +110,14 @@ Identifies the parameters whose variation splits a unified cloud into distinct c
 ### Phase Diagram
 Renders the coarse-graining flow as a 2D projection with basins shaded, fixed points marked, and critical boundaries drawn. Analogous to RG-flow phase diagrams in physics, legible as a single image.
 
-### Embedding Dependence Probe
-Recomputes the corpus map, the eigendirections, and the RG flow under a different open-weight embedding model. Reports the delta. Stability across embeddings is a stronger claim about the field than any single run.
+### Embedding Dependence Probe ✅
+Re-embeds the same corpus under a second open-weight model chosen from a shortlist (MiniLM, MPNet, BGE) and aligns the two bases via document projections. Dimensions may differ between models; the alignment is computed as the absolute Pearson correlation of per-document scores under each basis, which is basis-dim-independent. Reports per-component agreement (with signed cosine so sign flips are visible), side-by-side loadings, and an overall stability score. The methodological keystone of the Critique tab: every Theoryscope finding is a finding about the corpus-as-measured-by-a-particular-embedding-model, and this probe is how you check whether it survives.
 
-### Perturbation Test
-Adds one out-of-field paper to the corpus. Measures how far the top eigenvectors move. A diagnostic for how robust a particular eigendirection is to a small change in what is in the corpus.
+### Perturbation Test ✅
+Appends one user-supplied out-of-field text to the corpus, re-embeds that one row, recomputes the eigenbasis on the full set, and aligns to baseline directly in the embedding space. Ships with three curated default probes (commercial press release, medieval canon law, nature writing) so the operation can be run immediately. Returns per-component rotation (1 − |cos|) ranked descending so the user sees which axis was most sensitive to the perturbation, plus where the probe itself lands on each component. A component that rotates substantially under one new paper was not a structural feature of the field.
 
-### Forgetting Curve
-Removes a random 20% of the corpus, redoes the eigendecomposition, and compares. Iterates. Reports which eigendirections are robust under corpus resampling and which are fragile.
+### Forgetting Curve ✅
+Bootstraps over the corpus: at each iteration (default 20), a random fraction of documents (default 20%) is removed, the eigenbasis is recomputed on the survivors, and aligned to baseline. Reports per-component mean / standard deviation / min / interquartile range of the alignment scores across iterations, plus overall stability. The per-iteration table is visible in the deep dive. A formal stability gate for every other finding the tool produces.
 
 ### Translated Corpus Probe
 Re-runs the eigendecomposition on a machine-translated version of the corpus. Eigendirections that survive translation arguably track concepts. Directions that do not arguably track language-specific framings. The translation is not neutral, and the delta is what matters.
@@ -260,17 +256,21 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 
 ## Roadmap
 
-- [x] Phase 0 scaffold: Next.js frontend, FastAPI backend, editorial design system, hard-coded Philosophy of Technology corpus, Corpus Map operation end to end
-- [x] Phase 1: Eigendirections operation with annotated axis cards (positive and negative poles per component)
+### Shipped (v0.3.0)
+
+- [x] Phase 0 scaffold: Next.js frontend, FastAPI backend, editorial design system, hard-coded Philosophy of Technology corpus
+- [x] Phase 1: Eigendirections operation with annotated axis cards
 - [x] Phase 1.5: Zotero ingestion via pyzotero (user/group libraries, collection picker, credentials in localStorage)
-- [x] Phase 1.5: Export pipeline — provenance-stamped JSON downloads from Corpus Map and Eigendirections
+- [x] Phase 1.5: Export pipeline — provenance-stamped JSON downloads from every live operation
 - [x] Phase 1.5: On-disk cache for embedded corpora (keyed by document IDs + chunking + embedding model)
-- [ ] Phase 1.5: Debated-vs-computed comparison UI (deferred from Phase 1)
 - [x] Phase 2: Flow core + three operations (Coarse-Graining Trajectory, Fixed Point Finder, Universality Class Finder) via aggregative k-means coarse-graining
-- [x] Phase 3A: Critique tab open — Embedding Dependence Probe, Perturbation Test, Forgetting Curve built on a shared eigenbasis-alignment primitive
-- [ ] Phase 2 cont.: Relevant / Irrelevant Operator Spectrum, Temporal RG Flow, semantic and lexical coarse-graining operators
-- [ ] Phase 3 cont.: Symmetry Breaking Map, Phase Diagram rendering, Translated Corpus Probe
-- [ ] Phase 3: Critique operations (Symmetry Breaking, Phase Diagram rendering, Embedding Dependence Probe, Perturbation Test, Forgetting Curve, Translated Corpus Probe)
+- [x] Phase 3A: Critique tab open — Embedding Dependence Probe, Perturbation Test, Forgetting Curve, all built on a shared eigenbasis-alignment primitive
+
+### Next
+
+- [ ] Inspect completions: Concept Locator, Author Constellation, Debated-vs-computed comparison UI
+- [ ] Flow continuation: Relevant / Irrelevant Operator Spectrum, Temporal RG Flow, semantic and lexical coarse-graining operators
+- [ ] Critique continuation: Symmetry Breaking Map, Phase Diagram rendering, Translated Corpus Probe
 - [ ] Phase 4: Corpus-vs-Model Probe with worked example (AICT corpus vs small open-weight model); Atlas feature with first three entries; Critical Annotations Layer
 - [ ] Phase 5: Release blog post on Stunlaw (companion to *Renormalising Theory*)
 

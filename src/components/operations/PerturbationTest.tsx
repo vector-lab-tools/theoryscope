@@ -97,7 +97,7 @@ export function PerturbationTest() {
               className={[
                 "px-2.5 py-1 text-xs uppercase tracking-wide border transition-colors",
                 probeLabel === p.label
-                  ? "border-burgundy text-ink bg-white/70"
+                  ? "border-gold text-ink bg-white/70"
                   : "border-ink/20 text-ink/70 bg-white/40 hover:bg-white/60",
               ].join(" ")}
             >
@@ -140,7 +140,7 @@ export function PerturbationTest() {
                 step={1}
                 value={nComponents}
                 onChange={(e) => setNComponents(Number(e.target.value))}
-                className="w-40 accent-burgundy"
+                className="w-40 accent-gold"
               />
               <span className="font-mono text-ink tabular-nums w-6 text-right">
                 {nComponents}
@@ -151,7 +151,7 @@ export function PerturbationTest() {
             type="button"
             onClick={() => void run()}
             disabled={!canRun}
-            className="px-3 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+            className="px-3 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
           >
             {state === "loading" ? "Perturbing…" : "Run perturbation"}
           </button>

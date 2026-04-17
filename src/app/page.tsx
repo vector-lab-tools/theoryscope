@@ -83,7 +83,7 @@ function Shell() {
                   className={[
                     "text-sm pb-1 border-b-2 transition-colors",
                     isActive
-                      ? "border-burgundy text-ink"
+                      ? "border-gold text-ink"
                       : isLive
                       ? "border-transparent text-ink/70 hover:text-ink"
                       : "border-transparent text-ink/30 cursor-not-allowed",

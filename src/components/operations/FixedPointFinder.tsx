@@ -77,7 +77,7 @@ export function FixedPointFinder() {
               step={1}
               value={nSteps}
               onChange={(e) => setNSteps(Number(e.target.value))}
-              className="w-40 accent-burgundy"
+              className="w-40 accent-gold"
             />
             <span className="font-mono text-ink tabular-nums w-6 text-right">
               {nSteps}
@@ -88,7 +88,7 @@ export function FixedPointFinder() {
           type="button"
           onClick={() => void run()}
           disabled={!canRun}
-          className="ml-auto px-3 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+          className="ml-auto px-3 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
         >
           {state === "loading" ? "Finding…" : "Find fixed points"}
         </button>
@@ -146,7 +146,7 @@ export function FixedPointFinder() {
                 className={[
                   "text-left p-4 border transition-colors",
                   focusBasin === b.basin_index
-                    ? "border-burgundy bg-white/70"
+                    ? "border-gold bg-white/70"
                     : "border-ink/10 bg-white/50 hover:bg-ivory/50",
                 ].join(" ")}
               >

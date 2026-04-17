@@ -33,7 +33,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Theoryscope",
-  description: "Geometry of theory space. An RG and eigenvector instrument for corpora of theoretical texts.",
+  description:
+    "Geometry of theory space. An RG and eigenvector instrument for corpora of theoretical texts.",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
@@ -47,7 +54,7 @@ export default function RootLayout({
       className={`${libreBaskerville.variable} ${sourceSerif.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-body antialiased bg-ivory text-ink selection:bg-burgundy/20 selection:text-burgundy-900">
+      <body className="font-body antialiased bg-ivory text-ink selection:bg-gold/20 selection:text-gold-900">
         {children}
       </body>
     </html>

@@ -106,7 +106,7 @@ export function CoarseGrainingTrajectory() {
               step={1}
               value={nSteps}
               onChange={(e) => setNSteps(Number(e.target.value))}
-              className="w-40 accent-burgundy"
+              className="w-40 accent-gold"
             />
             <span className="font-mono text-ink tabular-nums w-6 text-right">
               {nSteps}
@@ -117,7 +117,7 @@ export function CoarseGrainingTrajectory() {
           type="button"
           onClick={() => void run()}
           disabled={!canRun}
-          className="ml-auto px-3 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+          className="ml-auto px-3 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
         >
           {state === "loading" ? "Computing…" : "Compute flow"}
         </button>
@@ -155,7 +155,7 @@ export function CoarseGrainingTrajectory() {
                 setStepIndex(Number(e.target.value));
                 setPlaying(false);
               }}
-              className="flex-1 accent-burgundy"
+              className="flex-1 accent-gold"
             />
             <span className="text-xs font-mono text-ink/70 tabular-nums w-28 text-right">
               step {stepIndex + 1}/{data.steps.length} · k={currentStep.k}
@@ -224,7 +224,7 @@ function ScheduleBar({
             className={[
               "flex-1 px-2 py-1.5 text-xs tabular-nums font-mono transition-colors",
               active
-                ? "bg-burgundy text-ivory"
+                ? "bg-gold text-ivory"
                 : "bg-white/60 text-ink/70 hover:bg-ivory/60",
               i > 0 ? "border-l border-ink/10" : "",
             ].join(" ")}

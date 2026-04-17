@@ -93,7 +93,7 @@ export function ForgettingCurve() {
           type="button"
           onClick={() => void run()}
           disabled={!canRun}
-          className="ml-auto px-3 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+          className="ml-auto px-3 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
         >
           {state === "loading" ? "Bootstrapping…" : "Run bootstrap"}
         </button>
@@ -276,7 +276,7 @@ function NumberControl({
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-40 accent-burgundy"
+          className="w-40 accent-gold"
         />
         <span className="font-mono text-ink tabular-nums w-14 text-right">
           {format ? format(value) : value}

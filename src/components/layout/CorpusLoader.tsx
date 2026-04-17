@@ -24,7 +24,7 @@ export function CorpusLoader() {
         type="button"
         onClick={() => void loadCorpus()}
         disabled={disabled}
-        className="px-3 py-1.5 bg-burgundy text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-burgundy-700 transition-colors"
+        className="px-3 py-1.5 bg-gold text-ivory text-sm tracking-wide uppercase disabled:opacity-50 hover:bg-gold-700 transition-colors"
       >
         {state === "loading" ? "Loading…" : "Load corpus"}
       </button>
