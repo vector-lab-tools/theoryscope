@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { useCorpus } from "@/context/CorpusContext";
+import { ExportButton } from "@/components/shared/ExportButton";
 
 // Plotly is client-only and heavy — load on demand, not during SSR.
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
@@ -92,13 +93,16 @@ export function CorpusMap() {
 
   return (
     <section className="space-y-6">
-      <div>
-        <h2 className="font-display text-xl text-ink">Corpus Map</h2>
-        <p className="text-sm text-ink/70 mt-1 max-w-3xl">
-          PCA projection of the corpus cloud. Each point is a document. Colour
-          encodes year. Axes are the top three principal components of the
-          embedding covariance.
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="font-display text-xl text-ink">Corpus Map</h2>
+          <p className="text-sm text-ink/70 mt-1 max-w-3xl">
+            PCA projection of the corpus cloud. Each point is a document.
+            Colour encodes year. Axes are the top three principal components
+            of the embedding covariance.
+          </p>
+        </div>
+        <ExportButton payload={data} filename="theoryscope-corpus-map" />
       </div>
 
       <div className="border border-ink/10 bg-white/60">

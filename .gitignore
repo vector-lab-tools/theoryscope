@@ -45,3 +45,6 @@ __pycache__/
 *.py[cod]
 backend/.venv/
 *.egg-info/
+
+# theoryscope corpus cache (embedded corpora, keyed by hash)
+.theoryscope-cache/

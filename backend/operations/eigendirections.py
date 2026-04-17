@@ -19,7 +19,7 @@ from typing import Any, Dict, List
 import numpy as np
 from sklearn.decomposition import PCA
 
-from corpus.pipeline import PHASE_ZERO_CORPUS_NAME, build_provenance, ingest_and_embed
+from corpus.pipeline import CorpusSpec, build_provenance, ingest_and_embed
 
 
 @dataclass
@@ -42,38 +42,22 @@ def _format_doc(doc, score: float) -> Dict[str, Any]:
 
 
 def compute_eigendirections(
-    corpus_name: str = PHASE_ZERO_CORPUS_NAME,
+    spec: CorpusSpec,
     n_components: int = 6,
     n_loadings: int = 5,
 ) -> Dict[str, Any]:
     """
     Parameters
     ----------
-    corpus_name : str
-        Currently only the hard-coded Phase 0 corpus is available.
+    spec : CorpusSpec
+        Corpus to ingest and embed (hardcoded or zotero).
     n_components : int
         Number of principal components to return (clamped to 2..min(n_docs, 20)).
     n_loadings : int
         Number of documents to return at each pole per component
         (clamped to 1..n_docs).
-
-    Returns
-    -------
-    dict with:
-        documents: [{id, author, year, title, tags}]
-        components: [
-          {
-            index: 0,
-            variance_explained: 0.123,
-            eigenvalue: 2.34,
-            positive_loadings: [ {id, author, year, title, score}, ... ],
-            negative_loadings: [ ... ],
-            coords: [score_doc_0, score_doc_1, ...]  # projection on this PC
-          }, ...
-        ]
-        provenance: dict
     """
-    bundle = ingest_and_embed(corpus_name=corpus_name)
+    bundle = ingest_and_embed(spec)
     n_docs = bundle.embeddings.shape[0]
 
     n_components = max(2, min(int(n_components), min(n_docs, 20)))
@@ -126,5 +110,6 @@ def compute_eigendirections(
         ],
         "components": components,
         "total_variance_explained": float(np.sum(pca.explained_variance_ratio_)),
+        "cache_hit": bundle.cache_hit,
         "provenance": provenance.to_dict(),
     }

@@ -2,6 +2,8 @@
 
 import { useCallback, useState } from "react";
 import { backendPost } from "@/hooks/useBackend";
+import { ExportButton } from "@/components/shared/ExportButton";
+import { useCorpusSource } from "@/context/CorpusSourceContext";
 import type {
   EigenComponent,
   EigenLoading,
@@ -11,18 +13,22 @@ import type {
 type RunState = "idle" | "loading" | "ready" | "error";
 
 export function Eigendirections() {
+  const { buildPayload, selected, zoteroReady } = useCorpusSource();
   const [state, setState] = useState<RunState>("idle");
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<EigendirectionsResponse | null>(null);
   const [nComponents, setNComponents] = useState<number>(6);
   const [nLoadings, setNLoadings] = useState<number>(5);
 
+  const canRun =
+    state !== "loading" && (selected.kind === "hardcoded" || zoteroReady);
+
   const run = useCallback(async () => {
     setState("loading");
     setError(null);
     try {
       const result = await backendPost<EigendirectionsResponse>("/eigendirections", {
-        corpus_name: "philosophy-of-technology-v1",
+        corpus: buildPayload(),
         n_components: nComponents,
         n_loadings: nLoadings,
       });
@@ -32,20 +38,23 @@ export function Eigendirections() {
       setError(err instanceof Error ? err.message : String(err));
       setState("error");
     }
-  }, [nComponents, nLoadings]);
+  }, [buildPayload, nComponents, nLoadings]);
 
   return (
     <section className="space-y-6">
-      <header>
-        <h2 className="font-display text-xl text-ink">Eigendirections</h2>
-        <p className="text-sm text-ink/70 mt-1 max-w-3xl">
-          Principal axes of the corpus cloud. For each top component, the
-          documents that load most positively and most negatively are
-          shown as the two poles of the axis. Naming the axis is the
-          critic&apos;s work; the tool supplies the pair of poles and
-          their magnitudes. Compare the computed axes to the field&apos;s
-          debated oppositions. The gap is diagnostic.
-        </p>
+      <header className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="font-display text-xl text-ink">Eigendirections</h2>
+          <p className="text-sm text-ink/70 mt-1 max-w-3xl">
+            Principal axes of the corpus cloud. For each top component, the
+            documents that load most positively and most negatively are
+            shown as the two poles of the axis. Naming the axis is the
+            critic&apos;s work; the tool supplies the pair of poles and
+            their magnitudes. Compare the computed axes to the field&apos;s
+            debated oppositions. The gap is diagnostic.
+          </p>
+        </div>
+        <ExportButton payload={data} filename="theoryscope-eigendirections" />
       </header>
 
       <Controls
@@ -54,7 +63,7 @@ export function Eigendirections() {
         onComponentsChange={setNComponents}
         onLoadingsChange={setNLoadings}
         onRun={() => void run()}
-        disabled={state === "loading"}
+        disabled={!canRun}
       />
 
       {state === "loading" ? (

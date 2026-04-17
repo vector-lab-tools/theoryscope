@@ -4,7 +4,7 @@
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
-**Version:** 0.0.1
+**Version:** 0.1.5
 **Date:** 17 April 2026
 **Licence:** MIT
 
@@ -254,9 +254,11 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 ## Roadmap
 
 - [x] Phase 0 scaffold: Next.js frontend, FastAPI backend, editorial design system, hard-coded Philosophy of Technology corpus, Corpus Map operation end to end
-- [ ] Phase 1: Eigendirections operation with debated-vs-computed comparison UI
-- [ ] Phase 1: Zotero ingestion beyond the hard-coded list
-- [ ] Phase 1: Export pipeline (JSON with provenance)
+- [x] Phase 1: Eigendirections operation with annotated axis cards (positive and negative poles per component)
+- [x] Phase 1.5: Zotero ingestion via pyzotero (user/group libraries, collection picker, credentials in localStorage)
+- [x] Phase 1.5: Export pipeline — provenance-stamped JSON downloads from Corpus Map and Eigendirections
+- [x] Phase 1.5: On-disk cache for embedded corpora (keyed by document IDs + chunking + embedding model)
+- [ ] Phase 1.5: Debated-vs-computed comparison UI (deferred from Phase 1)
 - [ ] Phase 2: Flow operations (Coarse-Graining Trajectory, Fixed Point Finder, Relevant Operator Spectrum, Universality Class Finder, Temporal RG Flow); semantic coarse-graining operator
 - [ ] Phase 3: Critique operations (Symmetry Breaking, Phase Diagram rendering, Embedding Dependence Probe, Perturbation Test, Forgetting Curve, Translated Corpus Probe)
 - [ ] Phase 4: Corpus-vs-Model Probe with worked example (AICT corpus vs small open-weight model); Atlas feature with first three entries; Critical Annotations Layer

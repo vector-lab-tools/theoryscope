@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CorpusMap } from "@/components/operations/CorpusMap";
 import { Eigendirections } from "@/components/operations/Eigendirections";
 import { CorpusLoader } from "@/components/layout/CorpusLoader";
+import { CorpusSourcePanel } from "@/components/layout/CorpusSourcePanel";
 import { Header } from "@/components/layout/Header";
 import { StatusBar } from "@/components/layout/StatusBar";
 import Providers from "./providers";
@@ -54,7 +55,8 @@ function Shell() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <div className="px-6 pt-4 flex items-center justify-between">
+      <div className="px-6 pt-4 space-y-3">
+        <CorpusSourcePanel />
         <CorpusLoader />
       </div>
 
