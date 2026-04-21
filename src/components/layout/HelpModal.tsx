@@ -90,6 +90,21 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
                 <strong>Eigendirections.</strong> Annotated principal axes,
                 positive and negative poles per component.
               </li>
+              <li>
+                <strong>Debated vs Computed.</strong> Name an opposition the
+                field says it is structured by; the tool finds the PC most
+                aligned with it and reports a dominance score.
+              </li>
+              <li>
+                <strong>Concept Locator.</strong> Embed a concept into the
+                corpus space; read the nearest documents, nearest authors,
+                and most-aligned principal component.
+              </li>
+              <li>
+                <strong>Author Constellation.</strong> Aggregate each author
+                to a centroid with intra-author spread, overlaid on the
+                same PCA basis as the Corpus Map.
+              </li>
             </ul>
           </section>
 

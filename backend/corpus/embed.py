@@ -52,6 +52,28 @@ def embed_documents(
     return embeddings.astype(np.float32), spec
 
 
+def embed_texts(
+    texts: List[str],
+    model_id: str = DEFAULT_MODEL_ID,
+) -> np.ndarray:
+    """Embed raw strings (e.g. user queries) with the same model the corpus used.
+
+    Returns an L2-normalised matrix of shape (n_texts, dim). The caller
+    is responsible for passing the corpus's model_id when the query
+    must live in the same space as the corpus embeddings.
+    """
+    if not texts:
+        return np.zeros((0, 0), dtype=np.float32)
+    model = _load_model(model_id)
+    embeddings = model.encode(
+        texts,
+        normalize_embeddings=True,
+        show_progress_bar=False,
+        convert_to_numpy=True,
+    )
+    return embeddings.astype(np.float32)
+
+
 def default_chunking() -> ChunkingSpec:
     """Phase 0 chunking: none. Each document is one point."""
     return ChunkingSpec(strategy="none", max_tokens=0, overlap=0)

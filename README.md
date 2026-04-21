@@ -11,7 +11,7 @@
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
-**Version:** 0.3.0
+**Version:** 0.4.0
 **Date:** 17 April 2026
 **Licence:** MIT
 
@@ -43,14 +43,15 @@ The difference between a **chat model** and an **embedding model** is relevant h
 
 ## Operations at a Glance
 
-Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas). Live at v0.3.0: all three Inspect anchors, three Flow operations, three Critique operations.
+Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas). Live at v0.4.0: Inspect complete (five operations), three Flow operations, three Critique operations.
 
 | Group | Operation | Status | Core question |
 |---|---|---|---|
 | **Inspect** | Corpus Map | ✅ live | What does the cloud look like? |
 | Inspect | Eigendirections | ✅ live | What are the principal axes of the field? |
-| Inspect | Concept Locator | ⏳ planned | Where does this concept sit, and along which axis does it vary? |
-| Inspect | Author Constellation | ⏳ planned | How do authors differ and where do they concentrate? |
+| Inspect | Debated vs Computed | ✅ live | Does the axis the field says it debates match a computed PC? |
+| Inspect | Concept Locator | ✅ live | Where does this concept sit, and along which axis does it vary? |
+| Inspect | Author Constellation | ✅ live | How do authors differ and where do they concentrate? |
 | **Flow** | Coarse-Graining Trajectory | ✅ live | How do points move under successive coarse-grainings? |
 | Flow | Fixed Point Finder | ✅ live | Where does the flow stop? |
 | Flow | Universality Class Finder | ✅ live | Which starting positions converge to the same endpoint? |
@@ -77,8 +78,9 @@ The opening workspace. Load a corpus, watch it appear as geometry, read its prin
 - **Open-weight embeddings.** Following the commitment to make every parameter inspectable, Theoryscope does not use commercial embedding APIs. The default embedder is `sentence-transformers/all-MiniLM-L6-v2`; the Embedding Dependence Probe uses `all-mpnet-base-v2` and `BAAI/bge-small-en-v1.5` as alternatives. All embedding models run locally via `sentence-transformers`.
 - **Corpus as a cloud.** ✅ Each document is a point in a high-dimensional embedding space. The Corpus Map projects to three dimensions via PCA and renders the cloud as a 3D scatter in Plotly, with documents coloured by year and labelled by author.
 - **Annotated eigendirections.** ✅ Each principal component is annotated with the documents that load most positively and most negatively on it. The critical use is comparison with the field's debated oppositions: computed axes and debated axes rarely match, and the gap is diagnostic.
-- **Concept locator.** ⏳ Enter a short text or concept. The tool embeds it into the same space, returns the nearest documents and authors, and reports the eigenvector most aligned with the query.
-- **Author constellations.** ⏳ Aggregate an author's corpus to a single centroid with intra-author spread. Overlay multiple authors on the same eigenbasis to compare their constellations.
+- **Concept locator.** ✅ Enter a short text or concept. The tool embeds it in the same space, returns the nearest documents and authors, and reports the principal component most aligned with the query, with per-component alignment bars.
+- **Author constellations.** ✅ Aggregate each author's documents to a centroid with intra-author spread. Overlaid on the same PCA basis as the Corpus Map. Click an author card or a constellation on the map to focus; an author-pair cosine matrix sits in the deep dive.
+- **Debated vs computed.** ✅ Name an opposition the field is said to be structured by (with a short text per pole). The tool embeds the poles, constructs a direction vector, and reports the principal component most aligned with it, with a dominance score combining alignment and variance.
 - **Provenance record.** ✅ Every operation view has a deep-dive panel exposing the full provenance JSON: corpus source, document IDs, embedding model and dimension, chunking spec, ingestion timestamp, and SHA-256 corpus hash. The `ExportButton` downloads the full operation result with its provenance as a timestamped JSON file.
 
 ## Flow Modes
@@ -256,7 +258,7 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 
 ## Roadmap
 
-### Shipped (v0.3.0)
+### Shipped (v0.4.0)
 
 - [x] Phase 0 scaffold: Next.js frontend, FastAPI backend, editorial design system, hard-coded Philosophy of Technology corpus
 - [x] Phase 1: Eigendirections operation with annotated axis cards
@@ -265,14 +267,16 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 - [x] Phase 1.5: On-disk cache for embedded corpora (keyed by document IDs + chunking + embedding model)
 - [x] Phase 2: Flow core + three operations (Coarse-Graining Trajectory, Fixed Point Finder, Universality Class Finder) via aggregative k-means coarse-graining
 - [x] Phase 3A: Critique tab open — Embedding Dependence Probe, Perturbation Test, Forgetting Curve, all built on a shared eigenbasis-alignment primitive
+- [x] Phase 3B: Vector Lab branding — gold accent for inner tier, tool mark, favicon, Help modal
+- [x] Phase 4A: Inspect completions — Concept Locator, Author Constellation, Debated-vs-Computed
 
 ### Next
 
-- [ ] Inspect completions: Concept Locator, Author Constellation, Debated-vs-computed comparison UI
 - [ ] Flow continuation: Relevant / Irrelevant Operator Spectrum, Temporal RG Flow, semantic and lexical coarse-graining operators
 - [ ] Critique continuation: Symmetry Breaking Map, Phase Diagram rendering, Translated Corpus Probe
-- [ ] Phase 4: Corpus-vs-Model Probe with worked example (AICT corpus vs small open-weight model); Atlas feature with first three entries; Critical Annotations Layer
-- [ ] Phase 5: Release blog post on Stunlaw (companion to *Renormalising Theory*)
+- [ ] Corpus-vs-Model Probe with worked example (AICT corpus vs small open-weight model)
+- [ ] Atlas feature with first three entries; Critical Annotations Layer
+- [ ] Release blog post on Stunlaw (companion to *Renormalising Theory*)
 
 ## Related Work
 

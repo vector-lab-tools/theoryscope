@@ -19,7 +19,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from corpus.pipeline import CorpusSpec, ZoteroSourceSpec
+from operations.author_constellation import compute_author_constellation
+from operations.concept_locator import compute_concept_locator
 from operations.corpus_map import compute_corpus_map
+from operations.debated_vs_computed import (
+    DebatePayload,
+    compute_debated_vs_computed,
+)
 from operations.eigendirections import compute_eigendirections
 from operations.embedding_probe import (
     compute_embedding_probe,
@@ -33,7 +39,7 @@ from operations.flow import (
 from operations.forgetting import compute_forgetting_curve
 from operations.perturbation import compute_perturbation_test
 
-app = FastAPI(title="Theoryscope Backend", version="0.3.0")
+app = FastAPI(title="Theoryscope Backend", version="0.4.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -126,6 +132,34 @@ class ForgettingRequest(BaseModel):
     seed: int = 0
 
 
+class ConceptLocatorRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    query_text: str
+    query_label: str = ""
+    n_nearest_docs: int = 8
+    n_nearest_authors: int = 5
+    n_components: int = 6
+
+
+class AuthorConstellationRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    min_documents: int = 1
+
+
+class DebatePairPayload(BaseModel):
+    label: str
+    pole_a_text: str
+    pole_b_text: str
+    pole_a_label: str = ""
+    pole_b_label: str = ""
+
+
+class DebatedVsComputedRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    debates: List[DebatePairPayload]
+    n_components: int = 6
+
+
 class ZoteroCollectionsRequest(BaseModel):
     library_id: str
     library_type: str
@@ -151,18 +185,21 @@ async def status() -> Dict[str, Any]:
     return {
         "status": "ok",
         "tool": "theoryscope",
-        "version": "0.3.0",
-        "phase": "3",
+        "version": "0.4.0",
+        "phase": "Inspect complete",
         "corpora_available": ["philosophy-of-technology-v1", "zotero"],
         "operations_available": [
             "corpus_map",
             "eigendirections",
+            "concept_locator",
+            "author_constellation",
             "coarse_graining_trajectory",
             "fixed_points",
             "universality_classes",
             "embedding_probe",
             "perturbation_test",
             "forgetting_curve",
+            "debated_vs_computed",
         ],
     }
 
@@ -195,6 +232,66 @@ async def eigendirections(req: EigendirectionsRequest) -> Dict[str, Any]:
         )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/concept-locator")
+async def concept_locator(req: ConceptLocatorRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        return await asyncio.to_thread(
+            compute_concept_locator,
+            spec,
+            req.query_text,
+            req.query_label,
+            req.n_nearest_docs,
+            req.n_nearest_authors,
+            req.n_components,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/author-constellation")
+async def author_constellation(req: AuthorConstellationRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        return await asyncio.to_thread(
+            compute_author_constellation,
+            spec,
+            req.min_documents,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/debated-vs-computed")
+async def debated_vs_computed(req: DebatedVsComputedRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        debates = [
+            DebatePayload(
+                label=d.label,
+                pole_a_text=d.pole_a_text,
+                pole_b_text=d.pole_b_text,
+                pole_a_label=d.pole_a_label,
+                pole_b_label=d.pole_b_label,
+            )
+            for d in req.debates
+        ]
+        return await asyncio.to_thread(
+            compute_debated_vs_computed,
+            spec,
+            debates,
+            req.n_components,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=500, detail=str(e))
 

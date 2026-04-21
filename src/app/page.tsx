@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { AuthorConstellation } from "@/components/operations/AuthorConstellation";
 import { CoarseGrainingTrajectory } from "@/components/operations/CoarseGrainingTrajectory";
+import { ConceptLocator } from "@/components/operations/ConceptLocator";
 import { CorpusMap } from "@/components/operations/CorpusMap";
+import { DebatedVsComputed } from "@/components/operations/DebatedVsComputed";
 import { Eigendirections } from "@/components/operations/Eigendirections";
 import { EmbeddingDependenceProbe } from "@/components/operations/EmbeddingDependenceProbe";
 import { FixedPointFinder } from "@/components/operations/FixedPointFinder";
@@ -25,8 +28,9 @@ type Tab = {
 const TABS: Tab[] = [
   { key: "corpus-map", label: "Corpus Map", group: "Inspect", component: <CorpusMap /> },
   { key: "eigendirections", label: "Eigendirections", group: "Inspect", component: <Eigendirections /> },
-  { key: "concept-locator", label: "Concept Locator", group: "Inspect", component: null },
-  { key: "author-constellation", label: "Author Constellation", group: "Inspect", component: null },
+  { key: "debated-vs-computed", label: "Debated vs Computed", group: "Inspect", component: <DebatedVsComputed /> },
+  { key: "concept-locator", label: "Concept Locator", group: "Inspect", component: <ConceptLocator /> },
+  { key: "author-constellation", label: "Author Constellation", group: "Inspect", component: <AuthorConstellation /> },
   { key: "coarse-graining", label: "Coarse-Graining Trajectory", group: "Flow", component: <CoarseGrainingTrajectory /> },
   { key: "fixed-points", label: "Fixed Point Finder", group: "Flow", component: <FixedPointFinder /> },
   { key: "operator-spectrum", label: "Relevant / Irrelevant Operators", group: "Flow", component: null },
