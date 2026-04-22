@@ -80,3 +80,96 @@ export type ForgettingCurveResponse = {
   overall_stability: number;
   provenance: ProvenanceRecord;
 };
+
+/* ----------------------------- Symmetry Breaking ------------------------- */
+
+export type SymmetryGroupEntry = {
+  label: string;
+  n_documents: number;
+  centroid_2d: [number, number];
+};
+
+export type SymmetryDocumentEntry = CorpusDocument & {
+  group: string;
+  coords_2d: [number, number];
+};
+
+export type SymmetryComponentAlignment = {
+  pc: number;
+  variance_explained: number;
+  signed_cosine: number;
+  abs_cosine: number;
+};
+
+export type SymmetryBreakingResponse = {
+  splitter: string;
+  threshold: number | null;
+  groups: SymmetryGroupEntry[];
+  documents: SymmetryDocumentEntry[];
+  pca2d_variance: [number, number];
+  silhouette_score: number;
+  f_statistic: number;
+  between_variance: number;
+  within_variance: number;
+  best_pc: number;
+  per_component: SymmetryComponentAlignment[];
+  provenance: ProvenanceRecord;
+};
+
+/* -------------------------------- Phase Diagram -------------------------- */
+
+export type PhaseDocument = {
+  id: string;
+  author: string;
+  year: number;
+  title: string;
+  initial_2d: [number, number];
+  terminal_2d: [number, number];
+  basin: number;
+};
+
+export type PhaseBasin = {
+  basin_index: number;
+  n_members: number;
+  fixed_point_2d: [number, number];
+  hull_2d: [number, number][];
+  members: number[];
+};
+
+export type PhaseDiagramResponse = {
+  documents: PhaseDocument[];
+  basins: PhaseBasin[];
+  n_basins: number;
+  schedule: number[];
+  pca2d_variance: [number, number];
+  provenance: ProvenanceRecord;
+};
+
+/* --------------------------- Translated Corpus Probe --------------------- */
+
+export type TranslationLanguage = {
+  code: string;
+  label: string;
+  model_id: string;
+};
+
+export type TranslationSample = {
+  id: string;
+  author: string;
+  year: number;
+  title: string;
+  original_text: string;
+  translated_text: string;
+};
+
+export type TranslationProbeResponse = {
+  target_lang: string;
+  language_label: string;
+  translation_model_id: string;
+  cache_hit: boolean;
+  baseline_variance_explained: number[];
+  translated_variance_explained: number[];
+  alignment: AlignmentPayload;
+  samples: TranslationSample[];
+  provenance: ProvenanceRecord;
+};

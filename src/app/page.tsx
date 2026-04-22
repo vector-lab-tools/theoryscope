@@ -12,7 +12,10 @@ import { FixedPointFinder } from "@/components/operations/FixedPointFinder";
 import { ForgettingCurve } from "@/components/operations/ForgettingCurve";
 import { OperatorSpectrum } from "@/components/operations/OperatorSpectrum";
 import { PerturbationTest } from "@/components/operations/PerturbationTest";
+import { PhaseDiagram } from "@/components/operations/PhaseDiagram";
+import { SymmetryBreaking } from "@/components/operations/SymmetryBreaking";
 import { TemporalRGFlow } from "@/components/operations/TemporalRGFlow";
+import { TranslatedCorpusProbe } from "@/components/operations/TranslatedCorpusProbe";
 import { UniversalityClasses } from "@/components/operations/UniversalityClasses";
 import { CorpusLoader } from "@/components/layout/CorpusLoader";
 import { CorpusSourcePanel } from "@/components/layout/CorpusSourcePanel";
@@ -38,12 +41,12 @@ const TABS: Tab[] = [
   { key: "operator-spectrum", label: "Relevant / Irrelevant Operators", group: "Flow", component: <OperatorSpectrum /> },
   { key: "universality", label: "Universality Classes", group: "Flow", component: <UniversalityClasses /> },
   { key: "temporal-flow", label: "Temporal RG Flow", group: "Flow", component: <TemporalRGFlow /> },
-  { key: "symmetry-breaking", label: "Symmetry Breaking Map", group: "Critique", component: null },
-  { key: "phase-diagram", label: "Phase Diagram", group: "Critique", component: null },
+  { key: "symmetry-breaking", label: "Symmetry Breaking Map", group: "Critique", component: <SymmetryBreaking /> },
+  { key: "phase-diagram", label: "Phase Diagram", group: "Critique", component: <PhaseDiagram /> },
   { key: "embedding-probe", label: "Embedding Dependence Probe", group: "Critique", component: <EmbeddingDependenceProbe /> },
   { key: "perturbation", label: "Perturbation Test", group: "Critique", component: <PerturbationTest /> },
   { key: "forgetting", label: "Forgetting Curve", group: "Critique", component: <ForgettingCurve /> },
-  { key: "translation", label: "Translated Corpus Probe", group: "Critique", component: null },
+  { key: "translation", label: "Translated Corpus Probe", group: "Critique", component: <TranslatedCorpusProbe /> },
   { key: "corpus-vs-model", label: "Corpus-vs-Model Probe", group: "Critique", component: null },
   { key: "annotations", label: "Critical Annotations", group: "Annotations", component: null },
   { key: "atlas", label: "Atlas", group: "Atlas", component: null },

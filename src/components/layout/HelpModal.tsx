@@ -158,6 +158,24 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
                 <strong>Forgetting Curve.</strong> Bootstrap over the corpus;
                 report per-component stability as mean, IQR, and minimum.
               </li>
+              <li>
+                <strong>Symmetry Breaking Map.</strong> Name a splitter
+                (decade, year threshold, first tag, author); the tool
+                reports silhouette score, F-statistic, per-PC alignment
+                with the between-group direction.
+              </li>
+              <li>
+                <strong>Phase Diagram.</strong> One static image of the
+                flow: basin hulls, arrows from initial to terminal
+                positions, fixed points as large dots.
+              </li>
+              <li>
+                <strong>Translated Corpus Probe.</strong> Translate the
+                corpus via a local HelsinkiNLP Marian model (FR / DE /
+                ES / ZH), re-embed, and align with the baseline basis.
+                Eigendirections that survive translation track concepts;
+                those that do not track language-specific framings.
+              </li>
             </ul>
           </section>
 
