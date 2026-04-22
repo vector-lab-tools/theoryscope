@@ -65,7 +65,7 @@ function Shell() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header currentTabLabel={currentTab.label} />
 
       <div className="px-6 pt-4 space-y-3">
         <CorpusSourcePanel />

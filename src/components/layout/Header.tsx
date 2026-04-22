@@ -4,42 +4,71 @@ import { useState } from "react";
 import { HelpModal } from "@/components/layout/HelpModal";
 import { VERSION } from "@/lib/version";
 
-export function Header() {
+type Props = {
+  /** Label of the currently-active tab (displayed to the right of the tool name). */
+  currentTabLabel?: string;
+};
+
+/**
+ * Header composition follows the Vector Lab convention established in
+ * LLMbench: family mark + VECTOR LAB wordmark | tool icon + tool name |
+ * current mode label. The tool mark is gold (inner-tier Vector Lab).
+ */
+export function Header({ currentTabLabel }: Props) {
   const [helpOpen, setHelpOpen] = useState(false);
 
   return (
     <>
-      <header className="border-b border-ink/10 bg-ivory/80 backdrop-blur px-6 py-4 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          {/* Tool mark: point cloud with eigenvector axes. Vector Lab inner-tier gold. */}
+      <header className="border-b border-ink/10 bg-ivory/80 backdrop-blur px-4 py-2 flex items-center gap-3">
+        {/* Vector Lab family mark */}
+        <a
+          href="https://vector-lab-tools.github.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Vector Lab — research instruments for critical vector theory"
+          className="flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity shrink-0"
+        >
+          <img
+            src="/vector-lab-mark.svg"
+            alt="Vector Lab"
+            width={20}
+            height={20}
+            className="w-5 h-5"
+          />
+          <span className="text-[10px] font-medium tracking-widest uppercase text-ink/60 hidden sm:inline">
+            Vector Lab
+          </span>
+        </a>
+
+        <div className="h-4 w-px bg-parchment" />
+
+        {/* Theoryscope identity */}
+        <div className="flex items-center gap-2 shrink-0">
           <img
             src="/icon.svg"
             alt=""
-            width={32}
-            height={32}
-            className="shrink-0"
+            width={18}
+            height={18}
+            className="w-[18px] h-[18px]"
             aria-hidden="true"
           />
-          <div>
-            <h1 className="font-display text-2xl text-ink leading-tight">
-              Theoryscope
-            </h1>
-            <p className="text-xs text-ink/60 mt-0.5 tracking-wide uppercase">
-              Geometry of Theory Space
-            </p>
-          </div>
+          <h1 className="font-display text-sm font-bold text-ink leading-none">
+            Theoryscope
+          </h1>
         </div>
 
-        <div className="flex items-center gap-4 text-xs text-ink/50">
-          <a
-            href="https://vector-lab-tools.github.io"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-ink underline decoration-ink/20 hover:decoration-ink"
-            title="Part of the Vector Lab"
-          >
-            Part of the Vector Lab
-          </a>
+        {currentTabLabel ? (
+          <>
+            <div className="h-4 w-px bg-parchment" />
+            <span className="text-xs text-ink/60 truncate">
+              {currentTabLabel}
+            </span>
+          </>
+        ) : null}
+
+        <div className="flex-1" />
+
+        <div className="flex items-center gap-3 text-xs text-ink/50 shrink-0">
           <button
             type="button"
             onClick={() => setHelpOpen(true)}
