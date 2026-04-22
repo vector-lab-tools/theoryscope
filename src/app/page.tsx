@@ -5,6 +5,7 @@ import { AuthorConstellation } from "@/components/operations/AuthorConstellation
 import { CoarseGrainingTrajectory } from "@/components/operations/CoarseGrainingTrajectory";
 import { ConceptLocator } from "@/components/operations/ConceptLocator";
 import { CorpusMap } from "@/components/operations/CorpusMap";
+import { CorpusVsModelProbe } from "@/components/operations/CorpusVsModelProbe";
 import { DebatedVsComputed } from "@/components/operations/DebatedVsComputed";
 import { Eigendirections } from "@/components/operations/Eigendirections";
 import { EmbeddingDependenceProbe } from "@/components/operations/EmbeddingDependenceProbe";
@@ -47,7 +48,7 @@ const TABS: Tab[] = [
   { key: "perturbation", label: "Perturbation Test", group: "Critique", component: <PerturbationTest /> },
   { key: "forgetting", label: "Forgetting Curve", group: "Critique", component: <ForgettingCurve /> },
   { key: "translation", label: "Translated Corpus Probe", group: "Critique", component: <TranslatedCorpusProbe /> },
-  { key: "corpus-vs-model", label: "Corpus-vs-Model Probe", group: "Critique", component: null },
+  { key: "corpus-vs-model", label: "Corpus-vs-Model Probe", group: "Critique", component: <CorpusVsModelProbe /> },
   { key: "annotations", label: "Critical Annotations", group: "Annotations", component: null },
   { key: "atlas", label: "Atlas", group: "Atlas", component: null },
 ];

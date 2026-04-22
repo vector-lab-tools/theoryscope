@@ -22,6 +22,10 @@ from corpus.pipeline import CorpusSpec, ZoteroSourceSpec
 from operations.author_constellation import compute_author_constellation
 from operations.concept_locator import compute_concept_locator
 from operations.corpus_map import compute_corpus_map
+from operations.corpus_vs_model import (
+    compute_corpus_vs_model,
+    list_available_models as list_cvm_models,
+)
 from operations.debated_vs_computed import (
     DebatePayload,
     compute_debated_vs_computed,
@@ -50,7 +54,7 @@ from operations.translation_probe import (
     list_available_languages,
 )
 
-app = FastAPI(title="Theoryscope Backend", version="0.6.0")
+app = FastAPI(title="Theoryscope Backend", version="0.8.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -208,6 +212,13 @@ class TranslationProbeRequest(BaseModel):
     n_samples: int = 3
 
 
+class CorpusVsModelRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    model_id: str
+    n_components: int = 5
+    n_loadings: int = 3
+
+
 class ZoteroCollectionsRequest(BaseModel):
     library_id: str
     library_type: str
@@ -233,8 +244,8 @@ async def status() -> Dict[str, Any]:
     return {
         "status": "ok",
         "tool": "theoryscope",
-        "version": "0.6.0",
-        "phase": "Critique complete (backends)",
+        "version": "0.8.0",
+        "phase": "Critique complete + reflexive probe",
         "corpora_available": ["philosophy-of-technology-v1", "zotero"],
         "operations_available": [
             "corpus_map",
@@ -253,8 +264,14 @@ async def status() -> Dict[str, Any]:
             "symmetry_breaking",
             "phase_diagram",
             "translation_probe",
+            "corpus_vs_model",
         ],
     }
+
+
+@app.get("/corpus-vs-model/models")
+async def corpus_vs_model_models() -> Dict[str, Any]:
+    return {"models": list_cvm_models()}
 
 
 @app.get("/translation-probe/languages")
@@ -516,6 +533,23 @@ async def phase_diagram(req: PhaseDiagramRequest) -> Dict[str, Any]:
             spec,
             req.n_steps,
             req.seed,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/corpus-vs-model")
+async def corpus_vs_model(req: CorpusVsModelRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        return await asyncio.to_thread(
+            compute_corpus_vs_model,
+            spec,
+            req.model_id,
+            req.n_components,
+            req.n_loadings,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

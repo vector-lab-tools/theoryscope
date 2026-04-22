@@ -173,3 +173,37 @@ export type TranslationProbeResponse = {
   samples: TranslationSample[];
   provenance: ProvenanceRecord;
 };
+
+/* --------------------------- Corpus-vs-Model Probe ----------------------- */
+
+export type CvmGenerativeModel = {
+  model_id: string;
+  label: string;
+  size_mb: number;
+};
+
+export type CvmMatch = ComponentMatch & {
+  mode: "agreement" | "partial" | "disagreement";
+};
+
+export type CvmDeltaDirection = {
+  model_pc: number;
+  variance_explained: number;
+  weakly_matched_to_baseline_pc?: number;
+  matched_abs_cosine?: number;
+};
+
+export type CorpusVsModelResponse = {
+  model: { model_id: string; label: string; hidden_dim: number };
+  cache_hit: boolean;
+  n_components: number;
+  baseline: ProbeBasis;
+  probe: ProbeBasis;
+  alignment: {
+    matches: CvmMatch[];
+    per_component: number[];
+    stability: number;
+  };
+  delta_directions: CvmDeltaDirection[];
+  provenance: ProvenanceRecord;
+};

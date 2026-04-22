@@ -176,6 +176,15 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
                 Eigendirections that survive translation track concepts;
                 those that do not track language-specific framings.
               </li>
+              <li>
+                <strong>Corpus-vs-Model Probe.</strong> An open-weight
+                generative model (SmolLM, GPT-2, Qwen3) reads the corpus
+                via a forward pass and mean-pools the last hidden state.
+                The tool aligns those eigendirections with the baseline
+                embedding&apos;s — agreement, disagreement, and delta
+                directions are reported per component. The reflexive
+                question in operational form.
+              </li>
             </ul>
           </section>
 
