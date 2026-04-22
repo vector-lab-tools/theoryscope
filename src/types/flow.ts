@@ -62,3 +62,52 @@ export type FlowRequest = {
   n_steps: number;
   seed: number;
 };
+
+/* ------------------------- Operator Spectrum ----------------------------- */
+
+export type ConceptProbe = {
+  label: string;
+  text: string;
+};
+
+export type ConceptSpectrumEntry = {
+  index: number;
+  label: string;
+  text: string;
+  baseline_variance: number;
+  relevance_score: number;
+  ratios_per_step: number[];
+};
+
+export type OperatorSpectrumResponse = {
+  schedule: number[];
+  concepts: ConceptSpectrumEntry[];
+  ranked_indices: number[];
+  provenance: ProvenanceRecord;
+};
+
+/* --------------------------- Temporal RG Flow ---------------------------- */
+
+export type TemporalBinEntry = {
+  label: number;
+  n_documents: number;
+  year_range: [number, number];
+};
+
+export type TemporalFlowStep = {
+  step: number;
+  width: number;
+  n_bins: number;
+  doc_coords_2d: [number, number][];
+  doc_bin_labels: number[];
+  bins: TemporalBinEntry[];
+};
+
+export type TemporalFlowResponse = {
+  documents: CorpusDocument[];
+  year_range: { min: number; max: number; span: number };
+  schedule: number[];
+  pca2d_variance: number[];
+  steps: TemporalFlowStep[];
+  provenance: ProvenanceRecord;
+};

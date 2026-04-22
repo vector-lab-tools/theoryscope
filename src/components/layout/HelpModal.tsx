@@ -126,6 +126,17 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
                 ascending surface cosine — low cosine is the universality
                 finding to read.
               </li>
+              <li>
+                <strong>Relevant / Irrelevant Operator Spectrum.</strong>{" "}
+                List candidate concepts; rank them by how much of their
+                discriminating power survives the flow.
+              </li>
+              <li>
+                <strong>Temporal RG Flow.</strong> Coarse-grain by
+                progressively wider year windows instead of by k-means;
+                asks whether the field&apos;s variation is historical or
+                conceptual.
+              </li>
             </ul>
           </section>
 

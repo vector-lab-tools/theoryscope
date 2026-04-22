@@ -37,9 +37,14 @@ from operations.flow import (
     compute_universality_classes,
 )
 from operations.forgetting import compute_forgetting_curve
+from operations.operator_spectrum import (
+    ConceptProbe,
+    compute_operator_spectrum,
+)
 from operations.perturbation import compute_perturbation_test
+from operations.temporal_flow import compute_temporal_flow
 
-app = FastAPI(title="Theoryscope Backend", version="0.4.0")
+app = FastAPI(title="Theoryscope Backend", version="0.5.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -160,6 +165,23 @@ class DebatedVsComputedRequest(BaseModel):
     n_components: int = 6
 
 
+class ConceptProbePayload(BaseModel):
+    label: str
+    text: str
+
+
+class OperatorSpectrumRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    concepts: List[ConceptProbePayload]
+    n_steps: int = 6
+    seed: int = 0
+
+
+class TemporalFlowRequest(BaseModel):
+    corpus: CorpusSourcePayload = Field(default_factory=CorpusSourcePayload)
+    n_steps: int = 6
+
+
 class ZoteroCollectionsRequest(BaseModel):
     library_id: str
     library_type: str
@@ -185,21 +207,23 @@ async def status() -> Dict[str, Any]:
     return {
         "status": "ok",
         "tool": "theoryscope",
-        "version": "0.4.0",
-        "phase": "Inspect complete",
+        "version": "0.5.0",
+        "phase": "Flow complete",
         "corpora_available": ["philosophy-of-technology-v1", "zotero"],
         "operations_available": [
             "corpus_map",
             "eigendirections",
             "concept_locator",
             "author_constellation",
+            "debated_vs_computed",
             "coarse_graining_trajectory",
             "fixed_points",
             "universality_classes",
+            "operator_spectrum",
+            "temporal_flow",
             "embedding_probe",
             "perturbation_test",
             "forgetting_curve",
-            "debated_vs_computed",
         ],
     }
 
@@ -289,6 +313,41 @@ async def debated_vs_computed(req: DebatedVsComputedRequest) -> Dict[str, Any]:
             spec,
             debates,
             req.n_components,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/operator-spectrum")
+async def operator_spectrum(req: OperatorSpectrumRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        concepts = [
+            ConceptProbe(label=c.label, text=c.text) for c in req.concepts
+        ]
+        return await asyncio.to_thread(
+            compute_operator_spectrum,
+            spec,
+            concepts,
+            req.n_steps,
+            req.seed,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/temporal-flow")
+async def temporal_flow(req: TemporalFlowRequest) -> Dict[str, Any]:
+    spec = req.corpus.to_spec()
+    try:
+        return await asyncio.to_thread(
+            compute_temporal_flow,
+            spec,
+            req.n_steps,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

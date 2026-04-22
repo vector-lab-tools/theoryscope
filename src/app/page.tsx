@@ -10,7 +10,9 @@ import { Eigendirections } from "@/components/operations/Eigendirections";
 import { EmbeddingDependenceProbe } from "@/components/operations/EmbeddingDependenceProbe";
 import { FixedPointFinder } from "@/components/operations/FixedPointFinder";
 import { ForgettingCurve } from "@/components/operations/ForgettingCurve";
+import { OperatorSpectrum } from "@/components/operations/OperatorSpectrum";
 import { PerturbationTest } from "@/components/operations/PerturbationTest";
+import { TemporalRGFlow } from "@/components/operations/TemporalRGFlow";
 import { UniversalityClasses } from "@/components/operations/UniversalityClasses";
 import { CorpusLoader } from "@/components/layout/CorpusLoader";
 import { CorpusSourcePanel } from "@/components/layout/CorpusSourcePanel";
@@ -33,9 +35,9 @@ const TABS: Tab[] = [
   { key: "author-constellation", label: "Author Constellation", group: "Inspect", component: <AuthorConstellation /> },
   { key: "coarse-graining", label: "Coarse-Graining Trajectory", group: "Flow", component: <CoarseGrainingTrajectory /> },
   { key: "fixed-points", label: "Fixed Point Finder", group: "Flow", component: <FixedPointFinder /> },
-  { key: "operator-spectrum", label: "Relevant / Irrelevant Operators", group: "Flow", component: null },
+  { key: "operator-spectrum", label: "Relevant / Irrelevant Operators", group: "Flow", component: <OperatorSpectrum /> },
   { key: "universality", label: "Universality Classes", group: "Flow", component: <UniversalityClasses /> },
-  { key: "temporal-flow", label: "Temporal RG Flow", group: "Flow", component: null },
+  { key: "temporal-flow", label: "Temporal RG Flow", group: "Flow", component: <TemporalRGFlow /> },
   { key: "symmetry-breaking", label: "Symmetry Breaking Map", group: "Critique", component: null },
   { key: "phase-diagram", label: "Phase Diagram", group: "Critique", component: null },
   { key: "embedding-probe", label: "Embedding Dependence Probe", group: "Critique", component: <EmbeddingDependenceProbe /> },

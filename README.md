@@ -11,7 +11,7 @@
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
-**Version:** 0.4.0
+**Version:** 0.5.0
 **Date:** 17 April 2026
 **Licence:** MIT
 
@@ -43,7 +43,7 @@ The difference between a **chat model** and an **embedding model** is relevant h
 
 ## Operations at a Glance
 
-Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas). Live at v0.4.0: Inspect complete (five operations), three Flow operations, three Critique operations.
+Theoryscope is organised as a tabbed workspace with five groups: three operational groups (Inspect, Flow, Critique) and two cross-cutting features (Annotations, Atlas). Live at v0.5.0: Inspect complete (five operations), Flow complete (five operations), three Critique operations.
 
 | Group | Operation | Status | Core question |
 |---|---|---|---|
@@ -55,8 +55,8 @@ Theoryscope is organised as a tabbed workspace with five groups: three operation
 | **Flow** | Coarse-Graining Trajectory | ✅ live | How do points move under successive coarse-grainings? |
 | Flow | Fixed Point Finder | ✅ live | Where does the flow stop? |
 | Flow | Universality Class Finder | ✅ live | Which starting positions converge to the same endpoint? |
-| Flow | Relevant / Irrelevant Operator Spectrum | ⏳ planned | Which concepts persist and which wash out? |
-| Flow | Temporal RG Flow | ⏳ planned | How do the principal axes shift across decades? |
+| Flow | Relevant / Irrelevant Operator Spectrum | ✅ live | Which concepts persist and which wash out? |
+| Flow | Temporal RG Flow | ✅ live | How do the principal axes shift across decades? |
 | **Critique** | Embedding Dependence Probe | ✅ live | Do these results survive a different embedding? |
 | Critique | Perturbation Test | ✅ live | How robust is this result to a small change in the corpus? |
 | Critique | Forgetting Curve | ✅ live | How fragile are these eigendirections under bootstrap? |
@@ -95,6 +95,12 @@ Iterates the flow to its terminal step and reports the basins every document fal
 
 ### Relevant / Irrelevant Operator Spectrum
 For a user-supplied or auto-extracted list of concepts, ranks each by whether its role in discriminating texts grows or shrinks under coarse-graining. Relevant operators persist at every scale; irrelevant operators wash out. The critical interpretation is the reader's; the tool reports the pattern.
+
+### Relevant / Irrelevant Operator Spectrum ✅
+User-supplied concepts are embedded in the corpus space, and their discriminating power across documents is tracked under progressive k-means coarse-graining. The relevance score per concept is the mean variance-ratio across every step of the schedule. Concepts whose axis of variation aligns with what the flow preserves score near 1.0 (structural operators); concepts whose variance the flow averages out score near 0.0 (surface operators). Ships with six default concepts (technology, labour, power, phenomenology, democracy, capital); the user can add, edit, and remove freely.
+
+### Temporal RG Flow ✅
+Coarse-grain by progressively wider year windows rather than by k-means. Each step bins documents into windows of a given width (from 1 year up through the full corpus span), places every document at its bin's centroid, and projects onto the shared PCA-2D basis. The temporal flow is a different critical question from semantic abstraction: it asks whether a field's variation is historical or conceptual. Play / Pause scrubber and clickable schedule of widths; bin listings in the deep dive.
 
 ### Universality Class Finder ✅
 Clusters corpus points by the fixed point they flow to, rather than by surface embedding. Classes are ranked by ascending surface mean cosine: a class whose members were surface-different but converge on the same basin is the universality-class finding worth inspecting. Each class card shows a universality bar (1 − surface cosine) so the relative universality of classes is legible at a glance.
@@ -258,7 +264,7 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 
 ## Roadmap
 
-### Shipped (v0.4.0)
+### Shipped (v0.5.0)
 
 - [x] Phase 0 scaffold: Next.js frontend, FastAPI backend, editorial design system, hard-coded Philosophy of Technology corpus
 - [x] Phase 1: Eigendirections operation with annotated axis cards
@@ -269,10 +275,11 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 - [x] Phase 3A: Critique tab open — Embedding Dependence Probe, Perturbation Test, Forgetting Curve, all built on a shared eigenbasis-alignment primitive
 - [x] Phase 3B: Vector Lab branding — gold accent for inner tier, tool mark, favicon, Help modal
 - [x] Phase 4A: Inspect completions — Concept Locator, Author Constellation, Debated-vs-Computed
+- [x] Phase 4B: Flow completions — Relevant / Irrelevant Operator Spectrum (variance-preservation scoring across the k-means flow) and Temporal RG Flow (progressively wider year-window aggregation)
 
 ### Next
 
-- [ ] Flow continuation: Relevant / Irrelevant Operator Spectrum, Temporal RG Flow, semantic and lexical coarse-graining operators
+- [ ] Flow cont.: semantic coarse-graining (local LLM paraphrase) and lexical coarse-graining (WordNet or domain synonyms)
 - [ ] Critique continuation: Symmetry Breaking Map, Phase Diagram rendering, Translated Corpus Probe
 - [ ] Corpus-vs-Model Probe with worked example (AICT corpus vs small open-weight model)
 - [ ] Atlas feature with first three entries; Critical Annotations Layer
