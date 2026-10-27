@@ -49,3 +49,6 @@ backend/.venv/
 # theoryscope corpus cache (embedded corpora, keyed by hash)
 .theoryscope-cache/
 .claude/
+
+# local scratch / inbox
+_tmp/
