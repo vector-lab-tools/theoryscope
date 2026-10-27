@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Operations — Theoryscope</title>
+<meta name="description" content="A guide to the three operational modes of Theoryscope — Inspect, Flow, Critique — with a worked example in each, plus the reflexive Corpus-vs-Model Probe.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html">Zotero&nbsp;key</a>
+      <a href="operations.html" aria-current="page">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Operations</p>
+      <h1>Three modes, seventeen operations.</h1>
+      <p class="lede">Theoryscope is organised as three tab groups. Inspect reads the field at rest. Flow coarse-grains it and watches what persists. Critique asks whether the finding survives a different embedding, a one-document perturbation, a bootstrap, a translation. This page walks a worked example in each.</p>
+    </div>
+  </div>
+
+  <section id="inspect">
+    <div class="wrap">
+      <p class="num">01 · Inspect</p>
+      <h2>What does the field look like?</h2>
+
+      <div class="mode">
+        <div class="mode-copy">
+          <span class="tag">Worked example · Corpus Map and Eigendirections</span>
+          <h3>Load a corpus. Rotate it. Read the axes.</h3>
+          <p>Load the Phase 0 corpus or a Zotero collection. The Corpus Map renders every document as a point in a 3D PCA projection, coloured by year, labelled by author. Rotate by dragging. Each principal component below the map is annotated with the documents that load most positively and most negatively on it. Those paired lists are the axis.</p>
+          <p>Open the Debated vs Computed panel. Enter an opposition the field is said to be structured by (<em>autonomous technology</em> vs <em>socially constructed technology</em>). Theoryscope embeds both poles, builds a direction vector, and reports which computed PC is most aligned with it. The gap between the debated axis and the computed one is diagnostic.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Inspect · Corpus Map with Eigendirections panel open.</div>
+          <figcaption>Phase 0 corpus, PCA 3-D, authors as colour.</figcaption>
+        </figure>
+      </div>
+
+      <div class="note">
+        <p><strong>Reading the result.</strong> A debated opposition that lands cleanly on PC1 is a field whose self-description matches its geometry. A debated opposition that scatters across PC3, PC5 and PC7 is a field whose critical self-image and whose positional structure diverge. The second case is more common and more analytically useful.</p>
+      </div>
+
+      <p class="prose" style="margin-top:18px">The Inspect tab also carries the Concept Locator (where does a given concept sit, and along which axis does it vary?) and the Author Constellation (how do authors differ, where do they concentrate?). Each operation has an Export button; the download carries the full provenance record alongside the result.</p>
+    </div>
+  </section>
+
+  <section id="flow">
+    <div class="wrap">
+      <p class="num">02 · Flow</p>
+      <h2>What survives abstraction?</h2>
+
+      <div class="mode flip">
+        <div class="mode-copy">
+          <span class="tag">Worked example · Coarse-graining to fixed points</span>
+          <h3>Animate the trajectory. Read the basins.</h3>
+          <p>Open the Flow tab. The Coarse-Graining Trajectory shows a log-spaced schedule from the full corpus down to two clusters. Click Play to animate how documents move as the aggregative operator (progressive k-means) runs through each step. Pause on any step to inspect the intermediate state. The operator is visible at every step with its parameters on screen.</p>
+          <p>The Fixed Point Finder reports the terminal basins. Each basin shows its population, an exemplar document (the member closest to the centroid), and a full member list. The Universality Class Finder ranks classes by ascending surface mean cosine, so classes whose members were surface-different but converged on the same basin surface at the top of the list.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Flow · Coarse-graining trajectory animated at step 4.</div>
+          <figcaption>Progressive k-means schedule, step 4 of 7.</figcaption>
+        </figure>
+      </div>
+
+      <div class="note">
+        <p><strong>Reading the result.</strong> A fixed point whose members are all from the same decade is a historical artefact. A fixed point whose members span the full time range and whose surface vocabulary differs is a candidate for a structural operator in the field.</p>
+      </div>
+
+      <p class="prose" style="margin-top:18px">The Flow tab also carries the Relevant / Irrelevant Operator Spectrum (which concepts persist across coarse-graining and which wash out) and the Temporal RG Flow (how the principal axes shift across decades), a different question from semantic abstraction.</p>
+    </div>
+  </section>
+
+  <section id="critique">
+    <div class="wrap">
+      <p class="num">03 · Critique</p>
+      <h2>Would this result survive a different embedding?</h2>
+
+      <div class="mode">
+        <div class="mode-copy">
+          <span class="tag">Worked example · Three probes on one claim</span>
+          <h3>Re-embed. Perturb. Bootstrap.</h3>
+          <p>Open the Critique tab. In the Embedding Dependence Probe, pick a second embedding model from the shortlist (MPNet, BGE). Theoryscope re-embeds the whole corpus under the second model and aligns the two bases via per-document projections. Per-component agreement and an overall stability score sit at the top of the panel.</p>
+          <p>In the Perturbation Test, append one out-of-field document (three curated probes ship with the tool). The eigenbasis is recomputed and per-component rotation is reported in descending order. In the Forgetting Curve, click Run: twenty iterations, each dropping twenty per cent of the corpus at random, each recomputing the eigenbasis, each aligning to the baseline. Mean, standard deviation and interquartile range are reported per component.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Critique · Embedding Dependence Probe after a run.</div>
+          <figcaption>Per-component agreement; signed cosine shows sign flips.</figcaption>
+        </figure>
+      </div>
+
+      <div class="note">
+        <p><strong>Reading the result.</strong> A finding that holds under re-embedding, under a one-document perturbation, and across twenty bootstrap resamples is a result you can cite. A finding that moves under any of those three is a finding about the measurement apparatus, not about the field.</p>
+      </div>
+
+      <p class="prose" style="margin-top:18px">The Critique tab also carries the Symmetry Breaking Map, the Phase Diagram, and the Translated Corpus Probe. The methodological keystone is that every Theoryscope finding is a finding about the corpus-as-measured-by-a-particular-embedding-model; the Critique operations are how you check whether it survives.</p>
+    </div>
+  </section>
+
+  <section id="reflexive">
+    <div class="wrap">
+      <p class="num">04 · Reflexive</p>
+      <h2>The Corpus-vs-Model Probe.</h2>
+      <p class="prose">Theoryscope asking a question about itself. The probe compares the eigendirections of a theoretical corpus against the eigendirections of an open-weight <em>generative</em> model (SmolLM2 or GPT-2) trained on something plausibly like that corpus. Alignment is computed via Procrustes or Canonical Correlation Analysis. The output separates <b>agreement</b> (axes the model preserved), <b>disagreement</b> (axes the corpus has that the model does not), and <b>delta directions</b> (axes the model added from its broader training).</p>
+      <p class="prose">The first run downloads the generative model (SmolLM2-135M at around 270 MB; GPT-2 at around 500 MB; SmolLM2-360M at around 720 MB). Every subsequent run is offline and cached.</p>
+      <figure style="margin-top:16px">
+        <div class="placeholder">Reflexive · Corpus-vs-Model Probe panel.</div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="exports">
+    <div class="wrap">
+      <p class="num">05 · Exports and provenance</p>
+      <h2>What makes a result citable.</h2>
+      <p class="prose">Every live operation has an Export button in its deep-dive panel. The exported JSON carries the provenance record in full: corpus source, document IDs, embedding model and dimension, chunking spec, operator and its parameters, ingestion timestamp, SHA-256 corpus hash. That record is what makes a Theoryscope result something that can travel into a paper. Without it the geometry is suggestive, not defensible.</p>
+      <figure style="margin-top:16px">
+        <div class="placeholder">A provenance record viewed in a text editor.</div>
+      </figure>
+
+      <div class="cta" style="margin-top:28px">
+        <a class="btn primary" href="getting-started.html">Set up Theoryscope</a>
+        <a class="btn" href="https://github.com/vector-lab-tools/theoryscope#operations-at-a-glance">Full list of 17 operations</a>
+        <a class="btn" href="troubleshooting.html">Troubleshooting</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a> · GPL-3.0-or-later</span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="index.html">Overview</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <a href="https://vector-lab-tools.github.io"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Troubleshooting — Theoryscope</title>
+<meta name="description" content="Common errors in Theoryscope setup, Zotero connection, embedding model downloads and operations, with the fix in each case.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html">Zotero&nbsp;key</a>
+      <a href="operations.html">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html" aria-current="page">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Troubleshooting</p>
+      <h1>What usually goes wrong.</h1>
+      <p class="lede">The common errors, grouped by phase. If none of these match, open an issue with the backend terminal output, the browser console, and the provenance JSON for the operation that failed.</p>
+    </div>
+  </div>
+
+  <section id="setup">
+    <div class="wrap">
+      <p class="num">01 · Setup</p>
+      <h2>Install and run.</h2>
+
+      <div class="trouble">
+        <h3><span class="mono">./setup.sh</span> fails on sentence-transformers.</h3>
+        <p>Python is older than 3.11. Check with <span class="mono">python3 --version</span>. On macOS, <span class="mono">brew install python@3.11</span>, then run <span class="mono">python3.11 ./setup.sh</span>.</p>
+      </div>
+
+      <div class="trouble">
+        <h3><span class="mono">npm install</span> fails on three or plotly.</h3>
+        <p>Node is older than 18. Check with <span class="mono">node --version</span>. Upgrade, or <span class="mono">nvm install 20</span>.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Backend starts but the frontend can't reach it.</h3>
+        <p>The frontend proxies <span class="mono">/api/backend/*</span> to <span class="mono">http://localhost:8000</span>. If uvicorn is on a different port, create <span class="mono">.env.local</span> at the repository root with <span class="mono">THEORYSCOPE_BACKEND_URL=http://localhost:&lt;port&gt;</span> and restart <span class="mono">npm run dev</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="zotero">
+    <div class="wrap">
+      <p class="num">02 · Zotero</p>
+      <h2>Credentials and connection.</h2>
+
+      <div class="trouble">
+        <h3>Theoryscope connects but comes back with zero items.</h3>
+        <p>The key does not have library access. Go to <a href="https://www.zotero.org/settings/keys">zotero.org/settings/keys</a>, click <b>Edit</b> on the key, tick <b>Allow library access</b> and save. For a group library the group itself needs read permission on the key. Full walkthrough: <a href="zotero-api-key.html">the Zotero API key page</a>.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>"Invalid library" or a 404 response.</h3>
+        <p>The library ID is wrong, or the library type does not match. The library ID is a plain integer, not your username. For a group library the ID is the group's number in the URL at <span class="mono">zotero.org/groups/&lt;number&gt;/&lt;name&gt;</span>, and the library type must be <span class="mono">group</span>.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>I see items on zotero.org but Theoryscope only loads a handful.</h3>
+        <p>Theoryscope paginates through the Zotero API in blocks of 100. If a request fails mid-stream the panel shows a partial corpus. Click <b>Reconnect</b> to re-fetch.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>I pasted the key but Theoryscope keeps asking for it.</h3>
+        <p>Credentials live in <span class="mono">localStorage</span> for <span class="mono">localhost:3000</span>. Clearing site data for that origin resets them. The key is never written to the backend cache or logs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="models">
+    <div class="wrap">
+      <p class="num">03 · Embedding and models</p>
+      <h2>Model downloads and memory.</h2>
+
+      <div class="trouble">
+        <h3>First run is slow.</h3>
+        <p>The default embedding model (<span class="mono">all-MiniLM-L6-v2</span>, around 90 MB) downloads on first use. Subsequent runs are offline. The Embedding Dependence Probe downloads <span class="mono">all-mpnet-base-v2</span> (around 420 MB) and <span class="mono">BAAI/bge-small-en-v1.5</span> (around 130 MB) when first selected. The Corpus-vs-Model Probe downloads a small generative model (SmolLM2-135M at around 270 MB, SmolLM2-360M at around 720 MB, GPT-2 at around 500 MB).</p>
+      </div>
+
+      <div class="trouble">
+        <h3>HuggingFace rate limit on first download.</h3>
+        <p>Unauthenticated downloads are rate-limited. Create a free token at <a href="https://huggingface.co/settings/tokens">huggingface.co/settings/tokens</a> and <span class="mono">export HF_TOKEN=&lt;your token&gt;</span> before starting the backend. Theoryscope itself does not need a HuggingFace token; this only raises the download rate limit.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Out of memory on a large corpus.</h3>
+        <p>Embedding runs in batches but the final matrix is held in memory. A corpus of 5,000 abstracts under MiniLM (384-dim) is around 15 MB. The Corpus-vs-Model Probe is the heaviest operation; smaller models (SmolLM2-135M) fit comfortably on 8 GB RAM machines, the larger ones on 16 GB.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="operations">
+    <div class="wrap">
+      <p class="num">04 · Operations</p>
+      <h2>Visualisation and exports.</h2>
+
+      <div class="trouble">
+        <h3>Corpus Map renders but points stack at the origin.</h3>
+        <p>The embedding call failed and returned zero vectors. Check the backend terminal: usually a Zotero fetch failure (empty titles and abstracts), or the embedding model failed to download. The provenance panel will show the corpus hash as <span class="mono">all-zeros</span>, which is the giveaway.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Eigendirections look like garbage on a small corpus.</h3>
+        <p>PCA on fewer than around twenty documents is unstable. Run the Forgetting Curve: if the standard deviation on PC1 is above 0.3 the eigenbasis is noise. Add documents, or use a larger embedding model.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Export button downloads an empty file.</h3>
+        <p>The operation has not completed. Wait for the status indicator in the deep-dive panel to clear before exporting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="issues">
+    <div class="wrap">
+      <p class="num">05 · Still stuck</p>
+      <h2>Open an issue.</h2>
+      <p class="prose">File at <a href="https://github.com/vector-lab-tools/theoryscope/issues">github.com/vector-lab-tools/theoryscope/issues</a> with:</p>
+      <ul class="prose">
+        <li>The backend terminal output around the error.</li>
+        <li>The browser console (<kbd>Cmd/Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd> → Console tab).</li>
+        <li>The provenance JSON for the operation that failed, from its Export button.</li>
+      </ul>
+      <p class="prose" style="margin-top:12px"><b>Do not paste your Zotero API key into an issue.</b> If a redacted log is needed, replace the key with <span class="mono">&lt;redacted&gt;</span> before attaching it.</p>
+
+      <div class="cta" style="margin-top:28px">
+        <a class="btn primary" href="getting-started.html">Back to setup</a>
+        <a class="btn" href="zotero-api-key.html">Zotero API key</a>
+        <a class="btn" href="operations.html">Operations</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a> · GPL-3.0-or-later</span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="index.html">Overview</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <a href="https://vector-lab-tools.github.io"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Setup — Theoryscope</title>
+<meta name="description" content="Install the Theoryscope backend and frontend, run the Phase 0 demo, point the tool at your own Zotero corpus.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html" aria-current="page">Setup</a>
+      <a href="zotero-api-key.html">Zotero&nbsp;key</a>
+      <a href="operations.html">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Setup</p>
+      <h1>Install and run.</h1>
+      <p class="lede">Theoryscope is a two-process application: a FastAPI backend that owns the embedding model and the corpus cache, and a Next.js frontend that owns the visualisation. Both run locally.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <p class="num">01 · Prerequisites</p>
+      <h2>What you need before you begin.</h2>
+      <table class="spec">
+        <tr><th>Node.js</th><td>Version 18 or newer. <a href="https://nodejs.org/">nodejs.org</a>, or <span class="mono">nvm install 20</span>.</td></tr>
+        <tr><th>Python</th><td>Version 3.11 or newer. The backend uses features introduced in 3.11.</td></tr>
+        <tr><th>Disk space</th><td>Around 2 GB free, for the Python virtual environment and the first embedding model download.</td></tr>
+        <tr><th>Zotero account</th><td>Only for analysing your own corpus; the Phase 0 demo does not need one. See the <a href="zotero-api-key.html">Zotero API key walkthrough</a>.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="num">02 · Install</p>
+      <h2>Clone and bootstrap.</h2>
+
+      <ol class="steps">
+        <li>
+          <h3>Clone the repository</h3>
+<pre>git clone https://github.com/vector-lab-tools/theoryscope.git
+cd theoryscope</pre>
+        </li>
+
+        <li>
+          <h3>Install the frontend</h3>
+<pre>npm install</pre>
+          <p>Pulls Next.js, React, Three.js, Plotly, and the rest. One or two minutes.</p>
+        </li>
+
+        <li>
+          <h3>Set up the Python backend</h3>
+<pre>cd backend
+./setup.sh</pre>
+          <p><span class="mono">setup.sh</span> creates a local <span class="mono">.venv</span> and installs FastAPI, uvicorn, sentence-transformers, scikit-learn, umap-learn, and pyzotero. The default embedding model (<span class="mono">all-MiniLM-L6-v2</span>, around 90 MB) downloads on first use rather than at install time.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="num">03 · Run</p>
+      <h2>Two terminals.</h2>
+      <p class="lead-in">Keep both running while you use Theoryscope. The frontend proxies every <span class="mono">/api/backend/*</span> request to the backend on <span class="mono">localhost:8000</span>, so the order they come up in does not matter.</p>
+
+      <h3>Terminal 1 — backend</h3>
+<pre>cd backend
+source .venv/bin/activate
+uvicorn main:app --reload --port 8000</pre>
+
+      <h3>Terminal 2 — frontend</h3>
+<pre>npm run dev</pre>
+
+      <p class="prose" style="margin-top:14px">Open <a href="http://localhost:3000">http://localhost:3000</a>.</p>
+
+      <figure style="margin-top:16px">
+        <div class="placeholder">Screenshot pending · the Theoryscope landing page in a browser.</div>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="num">04 · First run</p>
+      <h2>The Phase 0 demo.</h2>
+      <p class="prose">Click <b>Load Phase 0 Corpus</b>. Theoryscope embeds the twenty-document philosophy-of-technology corpus built into the backend (no Zotero needed) and renders the Corpus Map. The first run takes roughly thirty seconds while the embedding model downloads; subsequent runs are a couple of seconds.</p>
+
+      <figure style="margin-top:16px">
+        <div class="placeholder">Screenshot pending · the Corpus Map after loading Phase 0.</div>
+      </figure>
+
+      <p class="prose" style="margin-top:18px">The deep-dive panel at the bottom of the Corpus Map shows the full <b>provenance record</b> — corpus hash, document IDs, embedding model, chunking spec, operator, timestamp. Every exported result carries this record.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="num">05 · Your own corpus</p>
+      <h2>Pointing Theoryscope at Zotero.</h2>
+      <p class="prose">Open the Corpus Source panel on the left and choose <b>Zotero</b>. Theoryscope asks for three fields: library ID, library type, API key. The <a href="zotero-api-key.html">Zotero key walkthrough</a> covers each one, with the gotcha that trips every first-time user.</p>
+
+      <div class="cta" style="margin-top:22px">
+        <a class="btn primary" href="zotero-api-key.html">Zotero API key, step by step</a>
+        <a class="btn" href="operations.html">Operations guide</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a> · GPL-3.0-or-later</span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="index.html">Overview</a>
+      <a href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>

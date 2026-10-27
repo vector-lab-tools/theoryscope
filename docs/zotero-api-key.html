@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zotero API key — Theoryscope</title>
+<meta name="description" content="Step-by-step walkthrough for getting a Zotero API key working with Theoryscope. Library ID, library type, the one tick box every user forgets, and the group-library case.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html" aria-current="page">Zotero&nbsp;key</a>
+      <a href="operations.html">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Setup · the one piece every user gets wrong</p>
+      <h1>Zotero API key.</h1>
+      <p class="lede">Theoryscope reads your corpus straight from Zotero. It needs three things: your library ID, your library type, a private API key. This page gets each one, with the gotcha that trips every first-time user.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="note">
+        <p><strong>The only API key Theoryscope needs is a Zotero key.</strong> No OpenAI, no Anthropic, no HuggingFace token. The embedding models download once from HuggingFace and then run on your machine. Your Zotero credentials are stored in the browser only and posted directly to your local backend; they never leave your computer.</p>
+      </div>
+
+      <ol class="steps">
+
+        <li>
+          <h3>Sign in to Zotero</h3>
+          <p>Visit <a href="https://www.zotero.org/">zotero.org</a> and sign in, or create a free account. If you want to analyse a corpus you keep elsewhere, the easiest route is to make a Zotero group library, drag the items into it, and point Theoryscope at the group. The group route is covered in step 6.</p>
+        </li>
+
+        <li>
+          <h3>Find your library ID</h3>
+          <p>Go to <a href="https://www.zotero.org/settings/keys">zotero.org/settings/keys</a>. At the top of the page Zotero prints a line in bold:</p>
+          <pre>Your userID for use in API calls is 1234567</pre>
+          <p>Copy that number. That is your <b>library ID</b> for a user (personal) library. It is a plain integer; it is not your username.</p>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · the top of zotero.org/settings/keys with the "Your userID" line highlighted.</div>
+          </figure>
+          <div class="note">
+            <p><strong>Common wrong turnings.</strong> The library ID is not your username (<span class="mono">dmberry</span> is a username, <span class="mono">1234567</span> is the library ID). It is not the alphanumeric key in a public URL (<span class="mono">zotero.org/dmberry/items/ABCDEFG</span> — that is an item key). For a group library, see step 6, where the ID is the group's number.</p>
+          </div>
+        </li>
+
+        <li>
+          <h3>Create a private key</h3>
+          <p>On the same page, click <b>Create new private key</b>.</p>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · the Create new private key button.</div>
+          </figure>
+          <p>Fill in the form:</p>
+          <ul>
+            <li><b>Key Description:</b> anything. <span class="mono">Theoryscope</span> is fine.</li>
+            <li><b>Personal Library — Allow library access:</b> <b>tick this box</b>. If it is unticked the key cannot read anything, and Theoryscope will come back with an empty corpus. This is where almost every setup error begins.</li>
+            <li><b>Allow notes access:</b> leave unticked. Theoryscope does not use notes.</li>
+            <li><b>Allow write access:</b> leave unticked. Theoryscope only reads.</li>
+            <li><b>Default Group Permissions:</b> leave as <b>No access</b> unless you also want to use a group library through the same key (step 6).</li>
+          </ul>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · the permissions form with "Allow library access" ticked.</div>
+          </figure>
+          <p>Click <b>Save Key</b>.</p>
+        </li>
+
+        <li>
+          <h3>Copy the key immediately</h3>
+          <p>Zotero shows the new key <b>once</b>, as a 24-character alphanumeric string with no prefix:</p>
+          <pre>P9NiFoyLeZu2bZNvvuQPDWsd</pre>
+          <p>Unlike OpenAI or Anthropic keys there is no <span class="mono">sk-</span> prefix. If you lose the key you cannot retrieve it; delete it and create a new one.</p>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · the newly-created key displayed once.</div>
+          </figure>
+        </li>
+
+        <li>
+          <h3>Enter the credentials in Theoryscope</h3>
+          <p>Open the Corpus Source panel in Theoryscope and choose <b>Zotero</b>. Fill in:</p>
+          <ul>
+            <li><b>Library ID:</b> the number from step 2.</li>
+            <li><b>Library type:</b> <span class="mono">user</span> for a personal library, <span class="mono">group</span> for a group library.</li>
+            <li><b>API key:</b> the string from step 4.</li>
+          </ul>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · Theoryscope's Corpus Source panel with the three fields filled.</div>
+          </figure>
+          <p>Click <b>Connect</b>. Theoryscope fetches your collection tree. Pick a collection or a saved search to embed.</p>
+        </li>
+
+        <li>
+          <h3>Group libraries (the recommended way)</h3>
+          <p>A group library isolates a corpus from your personal reading. Setup differs on three points.</p>
+          <ol style="padding-left:22px; margin-top:8px">
+            <li>Create a group at <a href="https://www.zotero.org/groups/new">zotero.org/groups/new</a>. A private group is fine.</li>
+            <li>Drag or import the items you want to analyse into it.</li>
+            <li>Open the group's page. The URL is <span class="mono">zotero.org/groups/<b>1234567</b>/short-name</span>. The number is the <b>group's library ID</b>. In Theoryscope, use this number, not your personal user ID, and set <b>Library type</b> to <span class="mono">group</span>.</li>
+          </ol>
+          <p style="margin-top:10px">Then in the key form at <a href="https://www.zotero.org/settings/keys">zotero.org/settings/keys</a>, either set <b>Default Group Permissions</b> to <b>Read Only</b> (grants read access to every group), or edit the specific group's row below and tick <b>Read Only</b> there.</p>
+          <figure style="margin-top:16px">
+            <div class="placeholder">Screenshot pending · group URL with the group ID highlighted.</div>
+          </figure>
+        </li>
+
+      </ol>
+
+      <h3 style="margin-top:40px">What goes wrong</h3>
+
+      <div class="trouble">
+        <h3>Theoryscope connects but returns zero items.</h3>
+        <p>The key does not have library access. Go to <a href="https://www.zotero.org/settings/keys">zotero.org/settings/keys</a>, click <b>Edit</b> on the key, tick <b>Allow library access</b> and save. For a group library the group itself needs read permission on the key.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>"Invalid library" or a 404 response.</h3>
+        <p>The library ID is wrong, or the library type does not match. A personal user ID with <span class="mono">library type = group</span> will not resolve, and the reverse will not either. Group IDs come from the group URL, not from the top of the keys page.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>I rotated the key and now nothing works.</h3>
+        <p>A rotated key is a new key. Delete the old one in Zotero to avoid confusion, create a fresh one, paste the new value into Theoryscope. The credentials are kept in <span class="mono">localStorage</span> for <span class="mono">localhost:3000</span>; clearing site data for that origin resets them.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Does my key go on disk?</h3>
+        <p>No. Theoryscope keeps the key in <span class="mono">localStorage</span> in your browser, and the backend holds it only in memory for the duration of a request. It is never written to the cache, the logs, or the provenance record.</p>
+      </div>
+
+      <h3 style="margin-top:40px">What about other APIs?</h3>
+      <p class="prose">Theoryscope does not call OpenAI, Anthropic, Cohere, Voyage, or any other commercial embedding or generative API. The embedding models (<span class="mono">all-MiniLM-L6-v2</span> by default, with <span class="mono">all-mpnet-base-v2</span> and <span class="mono">BAAI/bge-small-en-v1.5</span> as alternatives for the Embedding Dependence Probe) are open-weight and run locally via <span class="mono">sentence-transformers</span>. The Corpus-vs-Model Probe uses small open-weight generative models (<span class="mono">SmolLM2</span>, <span class="mono">GPT-2</span>) from HuggingFace, also run locally. First use downloads the model (90 MB to 1.5 GB depending on choice); every subsequent run is offline. Zotero is the only external service.</p>
+
+      <div class="cta" style="margin-top:28px">
+        <a class="btn primary" href="getting-started.html">Back to setup</a>
+        <a class="btn" href="operations.html">Operations guide</a>
+        <a class="btn" href="troubleshooting.html">Troubleshooting</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a> · GPL-3.0-or-later</span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="index.html">Overview</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <a href="https://vector-lab-tools.github.io"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>

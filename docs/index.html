@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Theoryscope</title>
+<meta name="description" content="A renormalisation-group workbench for corpora of theoretical texts. Open-weight embeddings, PCA eigendirections, coarse-graining flows, perturbation and translation probes. Part of the Vector Lab.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html">Zotero&nbsp;key</a>
+      <a href="operations.html">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Vector Lab · a research instrument</p>
+        <h1>Theory<em>scope</em></h1>
+        <p class="lede">A renormalisation-group workbench for corpora of theoretical texts.</p>
+        <p class="sub">Theoryscope treats a corpus as a geometry. It embeds each text with an open-weight model, computes the principal eigendirections of the cloud, coarse-grains the field under a visible operator, and reports which structures survive. The gap between what a field says it is about and what its geometry says it is about is readable on screen.</p>
+        <div class="cta">
+          <a class="btn primary" href="getting-started.html">Set up Theoryscope</a>
+          <a class="btn" href="zotero-api-key.html">Zotero API key, step by step</a>
+          <a class="btn" href="https://github.com/vector-lab-tools/theoryscope">Source</a>
+        </div>
+      </div>
+      <figure class="hero-fig">
+        <a href="screenshots/corpus-map.png" aria-label="Open the full-resolution Corpus Map screenshot">
+          <div class="placeholder" aria-hidden="false">
+            Screenshot pending — the Corpus Map at Phase 0 (20 documents in philosophy of technology, PCA 3D projection, authors as colour).
+          </div>
+        </a>
+        <div class="band" aria-hidden="true"></div>
+        <div class="band-key" aria-hidden="true"><span>PC1 — most variance</span><span>PC-n — least</span></div>
+      </figure>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <p class="num">01 · About</p>
+      <h2>A corpus is a geometry. The instrument reads its shape.</h2>
+      <div class="prose">
+        <p>Theoryscope ingests a corpus, embeds each document with an open-weight sentence-transformer, and provides seventeen operations for inspecting the cloud's structure. Three analytical modes sit alongside each other: Inspect reads the field at rest; Flow coarse-grains it and watches what persists; Critique asks whether the finding survives a different embedding, a one-document perturbation, a bootstrap, a translation.</p>
+        <p>Every operation runs locally. Theoryscope does not call OpenAI, Anthropic, Cohere or any other commercial embedding or generative API. The embedding models (MiniLM, MPNet, BGE) and the small generative models used by the Corpus-vs-Model Probe (SmolLM2, GPT-2) download once from HuggingFace and then run offline. The only credential it needs is a Zotero API key, so it can read your library.</p>
+        <p>Every result carries a provenance record: corpus hash, document IDs, embedding model, chunking spec, operator, timestamp. A finding that cannot be cited and re-run is not a finding. Theoryscope is open source under the GPL-3.0-or-later licence and part of the <a href="https://vector-lab-tools.github.io"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a>.</p>
+      </div>
+
+      <table class="spec" style="margin-top:28px">
+        <tr><th>Object</th><td>A corpus of theoretical texts (a Zotero collection, or a curated list).</td></tr>
+        <tr><th>Method</th><td>Open-weight sentence embeddings, PCA eigendecomposition, coarse-graining operators.</td></tr>
+        <tr><th>What you need</th><td>A Zotero account and API key. Node.js 18+. Python 3.11+. Roughly 2 GB of free disk.</td></tr>
+        <tr><th>What you do not need</th><td>Any commercial API key. All models run on your machine.</td></tr>
+        <tr><th>Licence</th><td>GPL-3.0-or-later.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="tour">
+    <div class="wrap">
+      <p class="num">02 · The three modes</p>
+      <h2>Inspect. Flow. Critique.</h2>
+      <p class="lead-in">A short tour. The <a href="operations.html">Operations guide</a> walks each in turn with worked examples.</p>
+
+      <div class="mode">
+        <div class="mode-copy">
+          <span class="tag">Inspect</span>
+          <h3>What does the field look like?</h3>
+          <p>The Corpus Map renders every document as a point in a 3D PCA projection. Each principal component is annotated with the documents that load most positively and most negatively on it. Those paired lists are the axis. Enter the opposition the field says it is structured by, and Theoryscope reports which computed PC is most aligned with it. Debated axes and computed axes rarely match.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Inspect · Corpus Map with Eigendirections panel</div>
+        </figure>
+      </div>
+
+      <div class="mode flip">
+        <div class="mode-copy">
+          <span class="tag">Flow</span>
+          <h3>What survives abstraction?</h3>
+          <p>Theoryscope coarse-grains the cloud under a visible operator (progressive k-means, with semantic and citation-graph operators planned) and animates the trajectory. The Fixed Point Finder reports the basins the flow terminates in. The Universality Class Finder ranks classes by ascending surface cosine, so classes whose members looked different on the surface but converged on the same basin surface at the top.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Flow · Coarse-graining trajectory and fixed points</div>
+        </figure>
+      </div>
+
+      <div class="mode">
+        <div class="mode-copy">
+          <span class="tag">Critique</span>
+          <h3>Would this result survive a different embedding?</h3>
+          <p>The Embedding Dependence Probe re-embeds the corpus under a second open-weight model and reports per-component agreement. The Perturbation Test adds one out-of-field text, recomputes, reports per-component rotation. The Forgetting Curve bootstraps: twenty iterations, each dropping twenty per cent at random, and reports mean, variance and interquartile range. A finding that holds under all three is a finding you can cite.</p>
+        </div>
+        <figure>
+          <div class="placeholder">Critique · Embedding Dependence Probe</div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="quickstart">
+    <div class="wrap">
+      <p class="num">03 · Quick start</p>
+      <h2>Three commands, two terminals, one demo corpus.</h2>
+      <p class="lead-in">The Phase 0 corpus (twenty documents in philosophy of technology) is built into the backend, so you can run Theoryscope end to end without a Zotero key.</p>
+      <pre>git clone https://github.com/vector-lab-tools/theoryscope.git
+cd theoryscope
+npm install
+cd backend &amp;&amp; ./setup.sh</pre>
+      <p class="prose" style="margin-top:14px">Then, in two terminals:</p>
+      <pre># terminal 1
+cd backend
+source .venv/bin/activate
+uvicorn main:app --reload --port 8000
+
+# terminal 2
+npm run dev</pre>
+      <p class="prose" style="margin-top:14px">Open <a href="http://localhost:3000">http://localhost:3000</a> and click <b>Load Phase 0 Corpus</b>. For your own corpus, follow the <a href="zotero-api-key.html">Zotero API key walkthrough</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18 L88 18 L50 86 Z"/><path d="M50 30 L12 18"/><path d="M50 30 L88 18"/><path d="M50 30 L50 86"/></g></svg></span>Vector Lab</a> · GPL-3.0-or-later</span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html">Zotero key</a>
+      <a href="operations.html">Operations</a>
+      <a href="troubleshooting.html">Troubleshooting</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>
