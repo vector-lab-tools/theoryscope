@@ -153,10 +153,12 @@ table.spec { width: 100%; border-collapse: collapse; margin: 10px 0 0; font-size
 table.spec th, table.spec td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 table.spec th { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); width: 32%; font-weight: 500; }
 
+:root { --vl-c1: #1a1aff; --vl-c2: #4a2aff; --vl-c3: #1a6aff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --vl-c1: #8a90ff; --vl-c2: #a68aff; --vl-c3: #80b0ff; } }
+:root[data-theme="dark"] { --vl-c1: #8a90ff; --vl-c2: #a68aff; --vl-c3: #80b0ff; }
 a:has(.vl-mark) { white-space: nowrap; }
-.vl-mark { display: inline-block; width: 0.78em; height: 0.78em; vertical-align: -0.08em; margin-right: 0.35em; }
+.vl-mark { display: inline-block; width: 0.9em; height: 0.9em; vertical-align: -0.12em; margin-right: 0.35em; }
 .vl-mark svg { width: 100%; height: 100%; display: block; }
-.vl-mark svg g { stroke: currentColor; }
 
 footer.site { padding-block: 40px 56px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 28px; justify-content: space-between; align-items: center; }
