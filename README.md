@@ -15,6 +15,8 @@
 
 **A renormalisation-group workbench for corpora of theoretical texts.**
 
+**Docs & how-to:** [vector-lab-tools.github.io/theoryscope](https://vector-lab-tools.github.io/theoryscope/) — includes a step-by-step Zotero API key walkthrough.
+
 **Author:** David M. Berry
 **Institution:** University of Sussex
 **Version:** 0.8.0
@@ -172,7 +174,7 @@ A curated set of pre-run analyses on named corpora. Each Atlas entry bundles a c
 ### Installation
 
 ```bash
-git clone https://github.com/dmberry/theoryscope.git
+git clone https://github.com/vector-lab-tools/theoryscope.git
 cd theoryscope
 npm install
 ```
