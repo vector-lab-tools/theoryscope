@@ -324,3 +324,16 @@ You should have received a copy of the GNU General Public License along with thi
 The full licence text is in [LICENSE](LICENSE).
 
 **Relicensing note.** All prior versions of Theoryscope were released under the MIT Licence. As sole copyright holder, David M. Berry relicenses all past and present versions of Theoryscope under GPL-3.0-or-later, effective 2026-08-09. Any copy previously received under MIT terms may, at the recipient's option, continue to be used under those MIT terms; but the canonical licence for Theoryscope from this point forward, and retroactively for the whole codebase, is GPL-3.0-or-later.
+
+## Citation
+
+[![DOI](https://zenodo.org/badge/1212967179.svg)](https://zenodo.org/badge/latestdoi/1212967179)
+
+Each release of Theoryscope is archived on Zenodo. The concept DOI below always resolves to the most recent version; the badge above tracks the latest release.
+
+- **Concept DOI (all versions):** [10.5281/zenodo.23715027](https://doi.org/10.5281/zenodo.23715027)
+- **This version (v0.8.2):** [10.5281/zenodo.23715030](https://doi.org/10.5281/zenodo.23715030)
+
+Suggested citation:
+
+> Berry, D. M. (2026). *Theoryscope: a renormalisation-group workbench for corpora of theoretical texts* (version 0.8.2) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23715027
