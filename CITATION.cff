@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use Theoryscope in your work, please cite it as below."
+title: "Theoryscope: renormalisation group theory and eigenvector analysis for intellectual history"
+abstract: >-
+  Renormalisation group theory and eigenvector analysis brought to intellectual history
+  and critical theory as a critical method, applied to a corpus of theoretical texts.
+  Part of the Vector Lab family of research instruments.
+type: software
+authors:
+  - family-names: Berry
+    given-names: David M.
+    affiliation: University of Sussex
+    orcid: "https://orcid.org/0000-0002-7737-5586"
+repository-code: "https://github.com/vector-lab-tools/theoryscope"
+license: GPL-3.0-or-later
+version: "0.8.2"
+date-released: 2026-10-29
+keywords:
+  - critical theory
+  - intellectual history
+  - renormalisation group
+  - embeddings
+  - digital humanities
