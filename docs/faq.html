@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAQ — Theoryscope</title>
+<meta name="description" content="Frequently asked questions about Theoryscope: when it was created, how it was developed, where the code lives, how to cite it, and its licence.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141518'/%3E%3Ccircle cx='10' cy='22' r='2.3' fill='%238fb0dc'/%3E%3Ccircle cx='17' cy='17' r='2.3' fill='%235a89b8'/%3E%3Ccircle cx='23' cy='10' r='2.3' fill='%232a4a7f'/%3E%3Cpath d='M8 24 L25 7' stroke='%23e2d9c8' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>Theoryscope</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html">Setup</a>
+      <a href="zotero-api-key.html">Zotero&nbsp;key</a>
+      <a href="operations.html">Operations</a>
+      <a class="hide-sm" href="troubleshooting.html">Troubleshooting</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h1>Questions about Theoryscope.</h1>
+      <p class="lede">Where the tool came from, how it was built, where the code lives and how to cite it. For setup errors, see <a href="troubleshooting.html">Troubleshooting</a>.</p>
+    </div>
+  </div>
+
+  <section id="history">
+    <div class="wrap">
+      <p class="num">01 · History</p>
+      <h2>Where Theoryscope came from.</h2>
+
+      <div class="trouble">
+        <h3>When was Theoryscope first created?</h3>
+        <p>The first commit, a Phase 0 scaffold, is dated 17 April 2026. David M. Berry at the University of Sussex designed the tool and built it with Claude Code. A reading list on the renormalisation group and the genealogy of deep learning, compiled by John Hessler, prompted the project.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>How was it developed?</h3>
+        <p>In numbered phases, each recorded in the <a href="https://github.com/vector-lab-tools/theoryscope/commits/main">commit history</a> and the roadmap in the <a href="https://github.com/vector-lab-tools/theoryscope#readme">README</a>.</p>
+        <ul class="prose" style="color:var(--muted); font-size:16.5px">
+          <li><b>17 April 2026, Phases 0 to 3A.</b> Scaffold and the built-in Phase 0 corpus; the Eigendirections operation; Zotero ingestion, provenance export and the disk cache; the first Flow operations (aggregative k-means coarse-graining); and the Critique tab, opened with the Embedding Dependence Probe, Perturbation Test and Forgetting Curve.</li>
+          <li><b>21 April, Phase 4A.</b> Inspect tab completed with the Concept Locator, Author Constellation and Debated vs Computed.</li>
+          <li><b>22 April, Phase 4B.</b> Flow tab completed with the Operator Spectrum and Temporal RG Flow.</li>
+          <li><b>23 April, Phases 4C, 4D and 5A.</b> Critique tab completed with the Symmetry Breaking Map, Phase Diagram and Translated Corpus Probe, then the Corpus-vs-Model Probe. Seventeen operations live.</li>
+          <li><b>13 June, Phase 5B.</b> Branding brought into line with the other Vector Lab instruments.</li>
+          <li><b>9 August, v0.8.1.</b> Relicensed from MIT to GPL-3.0-or-later.</li>
+          <li><b>27 October, v0.8.2.</b> This documentation site published, and the release archived on Zenodo with a DOI.</li>
+          <li><b>November 2026.</b> Model recommendations added to the app and the docs.</li>
+        </ul>
+      </div>
+
+      <div class="trouble">
+        <h3>What is still planned?</h3>
+        <p>A Critical Annotations Layer, for Markdown notes attached to any eigendirection, fixed point or basin and exported with the result; the Atlas, a set of curated pre-run analyses on named corpora; and semantic, lexical and citation-graph coarse-graining operators alongside the current aggregative one.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Is Theoryscope part of a larger project?</h3>
+        <p>Yes. It is one of the instruments in the <a href="https://vector-lab-tools.github.io">Vector Lab</a>, alongside <a href="https://github.com/vector-lab-tools/vectorscope">Vectorscope</a>, <a href="https://github.com/vector-lab-tools/manifoldscope">Manifoldscope</a>, <a href="https://github.com/vector-lab-tools/manifold-atlas">Manifold Atlas</a> and <a href="https://github.com/vector-lab-tools/LLMbench">LLMbench</a>. The others take a model as their object; Theoryscope takes a corpus.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="wrap">
+      <p class="num">02 · Code and citation</p>
+      <h2>Source, releases and licence.</h2>
+
+      <div class="trouble">
+        <h3>Where is the source code?</h3>
+        <p>On GitHub at <a href="https://github.com/vector-lab-tools/theoryscope">github.com/vector-lab-tools/theoryscope</a>.</p>
+        <ul class="prose" style="color:var(--muted); font-size:16.5px">
+          <li><a href="https://github.com/vector-lab-tools/theoryscope/releases">Releases</a>, with notes for each version.</li>
+          <li><a href="https://github.com/vector-lab-tools/theoryscope/commits/main">Commit history</a>, from the Phase 0 scaffold onwards.</li>
+          <li><a href="https://github.com/vector-lab-tools/theoryscope/issues">Issues</a>, for reporting problems.</li>
+          <li><a href="https://github.com/vector-lab-tools/theoryscope/tree/main/docs">The source of this site</a>, in the <span class="mono">docs/</span> folder.</li>
+        </ul>
+      </div>
+
+      <div class="trouble">
+        <h3>How do I cite Theoryscope?</h3>
+        <p>Each release is archived on Zenodo. The concept DOI <a href="https://doi.org/10.5281/zenodo.23715027">10.5281/zenodo.23715027</a> always resolves to the latest version. Suggested citation:</p>
+        <p class="mono" style="font-size:14px; color:var(--ink); background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; margin-top:10px">Berry, D. M. (2026). <i>Theoryscope: a renormalisation-group workbench for corpora of theoretical texts</i> [Software]. Zenodo. https://doi.org/10.5281/zenodo.23715027</p>
+        <p>The repository also carries a <a href="https://github.com/vector-lab-tools/theoryscope/blob/main/CITATION.cff">CITATION.cff</a> file, which GitHub uses for its "Cite this repository" button.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>What licence is it under?</h3>
+        <p>GPL-3.0-or-later. Versions before August 2026 were released under the MIT Licence; as sole copyright holder, David M. Berry relicensed all past and present versions under GPL-3.0-or-later. The full text is in <a href="https://github.com/vector-lab-tools/theoryscope/blob/main/LICENSE">LICENSE</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="setup">
+    <div class="wrap">
+      <p class="num">03 · Setup</p>
+      <h2>Keys and models.</h2>
+
+      <div class="trouble">
+        <h3>Which API keys do I need?</h3>
+        <p>Only a Zotero key, to read your library. Every model runs locally. See the <a href="zotero-api-key.html">Zotero API key walkthrough</a>, and the <a href="https://vector-lab-tools.github.io/faq.html">Vector Lab FAQ</a> for questions that apply across all the instruments.</p>
+      </div>
+
+      <div class="trouble">
+        <h3>Which models should I choose?</h3>
+        <p>See <a href="operations.html#models">Choosing models</a> on the Operations page. The model pickers in the app also mark the recommended starting point.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="issues">
+    <div class="wrap">
+      <p class="num">04 · Reporting a problem</p>
+      <h2>Open an issue.</h2>
+      <p class="prose">If it is not on this page, <a href="https://github.com/vector-lab-tools/theoryscope/issues">open an issue on the Theoryscope repository</a> to report the problem. If you have a fix, a <a href="https://github.com/vector-lab-tools/theoryscope/pulls">pull request</a> is welcome.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="foot-note">Theoryscope · part of the <a href="https://vector-lab-tools.github.io" style="display:inline"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="6.03,14.50 93.97,14.50 86.03,21.50 13.97,21.50" fill="var(--vl-c1)"/><polygon points="93.97,14.50 50.00,93.17 48.05,82.32 83.99,18.01" fill="var(--vl-c2)"/><polygon points="50.00,93.17 6.03,14.50 16.01,18.01 51.95,82.32" fill="var(--vl-c3)"/></svg></span>Vector Lab</a> · GPL-3.0-or-later · <a href="https://doi.org/10.5281/zenodo.23715027">DOI&nbsp;10.5281/zenodo.23715027</a></span>
+    <nav style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="index.html">Overview</a>
+      <a href="https://github.com/vector-lab-tools/theoryscope">GitHub</a>
+      <a href="https://vector-lab-tools.github.io"><span class="vl-mark" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="6.03,14.50 93.97,14.50 86.03,21.50 13.97,21.50" fill="var(--vl-c1)"/><polygon points="93.97,14.50 50.00,93.17 48.05,82.32 83.99,18.01" fill="var(--vl-c2)"/><polygon points="50.00,93.17 6.03,14.50 16.01,18.01 51.95,82.32" fill="var(--vl-c3)"/></svg></span>Vector Lab</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="theme.js"></script>
+</body>
+</html>

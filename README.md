@@ -17,7 +17,7 @@
 
 **Docs & how-to:** [vector-lab-tools.github.io/theoryscope](https://vector-lab-tools.github.io/theoryscope/), including a step-by-step Zotero API key walkthrough.
 
-**FAQ:** API keys, local models and setup questions across all Vector Lab instruments are answered in the [Vector Lab FAQ](https://vector-lab-tools.github.io/faq.html).
+**FAQ:** when Theoryscope was created, how it was developed, and how to cite it are in the [Theoryscope FAQ](https://vector-lab-tools.github.io/theoryscope/faq.html). API keys, local models and setup questions across all Vector Lab instruments are answered in the [Vector Lab FAQ](https://vector-lab-tools.github.io/faq.html).
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
