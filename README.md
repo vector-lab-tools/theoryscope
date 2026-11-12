@@ -141,7 +141,7 @@ Bootstraps over the corpus: at each iteration (default 20), a random fraction of
 Re-runs the eigendecomposition on a machine-translated version of the corpus. Eigendirections that survive translation arguably track concepts. Directions that do not arguably track language-specific framings. The translation is not neutral, and the delta is what matters.
 
 ### Corpus-vs-Model Probe
-The reflexive operation. Compares the eigendirections of a theoretical corpus against the eigendirections of an open-weight model trained on (or plausibly exposed to) that corpus. Alignment is computed via Procrustes analysis or Canonical Correlation Analysis. The output distinguishes agreement (axes the model preserved), disagreement (axes the corpus has and the model does not), and delta directions (axes the model added from its broader training). 
+The reflexive operation. Compares the eigendirections of a theoretical corpus against the eigendirections of an open-weight model trained on (or plausibly exposed to) that corpus. Alignment works on the documents rather than the axes: each corpus is projected onto both sets of principal components, and components are matched one-to-one by the absolute correlation of the per-document scores, which works even though the embedding model and the generative model produce vectors of different dimensions. The output distinguishes agreement (axes the model preserved), disagreement (axes the corpus has and the model does not), and delta directions (axes the model added from its broader training). 
 
 ## Annotations and Atlas
 
