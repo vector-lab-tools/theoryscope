@@ -321,7 +321,7 @@ Heavy visualisations (Plotly 3D scatter, and in later phases the Three.js flow a
 
 Concept and Design by David M. Berry, implemented with Claude Code 4.6. Design system adapted from the [CCS Workbench](https://github.com/dmberry/ccs-wb). Theoryscope shares its editorial design system, geometry library, NDJSON streaming, and FastAPI proxy pattern with its sibling instruments [Vectorscope](https://github.com/dmberry/vectorscope), [Manifold Atlas](https://github.com/dmberry/manifold-atlas), and [LLMbench](https://github.com/dmberry/LLMbench).
 
-Theoryscope was created in 2026 in Copenhagen, Denmark, as part of an Otto Mønsted Visiting Professorship. We thank the Otto Mønsted Foundation (Otto Mønsteds Fond) for its support.
+Theoryscope was created in 2026 in Copenhagen, Denmark, as part of the Otto Mønsted Visiting Professorship at Copenhagen Business School (CBS). We thank the Otto Mønsted Fond for its support.
 
 Many thanks to John Hessler for the renormalisation group and deep-learning genealogy reading list that inspired the Theoryscope.
 
