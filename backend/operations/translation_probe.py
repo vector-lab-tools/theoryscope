@@ -57,6 +57,7 @@ AVAILABLE_LANGUAGES: List[Dict[str, str]] = [
     {
         "code": "zh",
         "label": "Chinese (Marian)",
+        "hint": "hardest test",
         "model_id": "Helsinki-NLP/opus-mt-en-zh",
     },
 ]

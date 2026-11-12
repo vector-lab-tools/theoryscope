@@ -98,6 +98,7 @@ export function EmbeddingDependenceProbe() {
             {models.map((m) => (
               <option key={m.model_id} value={m.model_id}>
                 {m.label}
+                {m.hint ? ` · ${m.hint}` : ""}
               </option>
             ))}
           </select>

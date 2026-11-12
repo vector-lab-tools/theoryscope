@@ -131,9 +131,38 @@
     </div>
   </section>
 
+  <section id="models">
+    <div class="wrap">
+      <p class="num">05 · Choosing models</p>
+      <h2>Which model to pick.</h2>
+      <p class="lead-in">Three probes ask you to choose a model. The pickers in the app mark the recommended choice. All models are open-weight, download once from Hugging Face, and need no token.</p>
+
+      <h3>Embedding Dependence Probe</h3>
+      <table class="spec">
+        <tr><th>MPNet base v2 · start here</th><td>The baseline is MiniLM. MPNet is a different architecture with twice the dimensions (768 against 384), so agreement between the two is the stronger evidence that a component belongs to the corpus. Around 420 MB.</td></tr>
+        <tr><th>BGE small en 1.5 · second check</th><td>Same dimension as MiniLM, trained by a different group on different data. If a component holds under MPNet but not BGE, the difference cannot come from dimension. Around 130 MB.</td></tr>
+      </table>
+
+      <h3>Corpus-vs-Model Probe</h3>
+      <table class="spec">
+        <tr><th>SmolLM2 135M · start here</th><td>The fastest run. Use it to check the probe works on your corpus and to get a first reading. Fits on an 8 GB machine. Around 300 MB.</td></tr>
+        <tr><th>GPT-2 124M</th><td>Released in 2019, with a training set (WebText) described in its paper, so you can say what the model could have read. Fits on 8 GB. Around 550 MB.</td></tr>
+        <tr><th>SmolLM2 360M</th><td>The same family as SmolLM2 135M at a larger size. Run it after 135M to see whether a result depends on scale. Needs 16 GB. Around 750 MB.</td></tr>
+        <tr><th>Qwen3 0.6B</th><td>Released in 2025, the closest of the four to the language models in current use. Needs 16 GB. Around 1.2 GB.</td></tr>
+      </table>
+
+      <h3>Translated Corpus Probe</h3>
+      <table class="spec">
+        <tr><th>French or German</th><td>Suits corpora with French or German theory in the canon: translation moves the texts toward a language much of the field was written in.</td></tr>
+        <tr><th>Chinese · hardest test</th><td>The furthest of the four languages from English in script and grammar. A direction that survives translation into Chinese is the least likely to be an artefact of English phrasing.</td></tr>
+        <tr><th>Spanish</th><td>A further European comparison. Each language downloads its own Marian model, around 300 MB.</td></tr>
+      </table>
+    </div>
+  </section>
+
   <section id="exports">
     <div class="wrap">
-      <p class="num">05 · Exports and provenance</p>
+      <p class="num">06 · Exports and provenance</p>
       <h2>What makes a result citable.</h2>
       <p class="prose">Every live operation has an Export button in its deep-dive panel. The exported JSON carries the provenance record in full: corpus source, document IDs, embedding model and dimension, chunking spec, operator and its parameters, ingestion timestamp, SHA-256 corpus hash. That record is what makes a Theoryscope result something that can travel into a paper. Without it the geometry is suggestive, not defensible.</p>
       <figure style="margin-top:16px">

@@ -32,16 +32,19 @@ AVAILABLE_MODELS: List[dict] = [
     {
         "model_id": "sentence-transformers/all-MiniLM-L6-v2",
         "label": "MiniLM L6 v2 · 384d",
+        "hint": "default baseline",
         "dimension": 384,
     },
     {
         "model_id": "sentence-transformers/all-mpnet-base-v2",
         "label": "MPNet base v2 · 768d",
+        "hint": "recommended first",
         "dimension": 768,
     },
     {
         "model_id": "BAAI/bge-small-en-v1.5",
         "label": "BGE small en 1.5 · 384d",
+        "hint": "second check",
         "dimension": 384,
     },
 ]

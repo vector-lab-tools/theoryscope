@@ -6,6 +6,7 @@ import type { CorpusDocument } from "./corpus";
 export type EmbeddingModelInfo = {
   model_id: string;
   label: string;
+  hint?: string;
   dimension: number;
 };
 
@@ -150,6 +151,7 @@ export type PhaseDiagramResponse = {
 export type TranslationLanguage = {
   code: string;
   label: string;
+  hint?: string;
   model_id: string;
 };
 
@@ -179,6 +181,7 @@ export type TranslationProbeResponse = {
 export type CvmGenerativeModel = {
   model_id: string;
   label: string;
+  hint?: string;
   size_mb: number;
 };
 

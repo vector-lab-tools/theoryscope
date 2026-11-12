@@ -102,6 +102,7 @@ export function TranslatedCorpusProbe() {
             {languages.map((lang) => (
               <option key={lang.code} value={lang.code}>
                 {lang.label}
+                {lang.hint ? ` · ${lang.hint}` : ""}
               </option>
             ))}
           </select>

@@ -107,6 +107,7 @@ export function CorpusVsModelProbe() {
             {models.map((m) => (
               <option key={m.model_id} value={m.model_id}>
                 {m.label} · ~{m.size_mb} MB
+                {m.hint ? ` · ${m.hint}` : ""}
               </option>
             ))}
           </select>

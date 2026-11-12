@@ -49,6 +49,7 @@ AVAILABLE_MODELS: List[Dict[str, Any]] = [
     {
         "model_id": "HuggingFaceTB/SmolLM2-135M",
         "label": "SmolLM2 135M (fast)",
+        "hint": "start here",
         "size_mb": 300,
     },
     {
@@ -59,11 +60,13 @@ AVAILABLE_MODELS: List[Dict[str, Any]] = [
     {
         "model_id": "HuggingFaceTB/SmolLM2-360M",
         "label": "SmolLM2 360M",
+        "hint": "16 GB RAM",
         "size_mb": 750,
     },
     {
         "model_id": "Qwen/Qwen3-0.6B",
         "label": "Qwen3 0.6B",
+        "hint": "most recent, 16 GB RAM",
         "size_mb": 1200,
     },
 ]

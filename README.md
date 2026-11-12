@@ -208,6 +208,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Click **Load Phase 0 Corpus** to embed the 20-document philosophy-of-technology corpus and render the Corpus Map. The deep-dive panel at the bottom of the Corpus Map shows the full provenance record.
 
+### Choosing models
+
+Three probes ask you to pick a model. All are open-weight, download once from Hugging Face, and need no token. The pickers in the app mark the recommended choice; fuller notes are on the [Operations page](https://vector-lab-tools.github.io/theoryscope/operations.html#models).
+
+| Probe | Start with | Then |
+|---|---|---|
+| Embedding Dependence | **MPNet base v2** (768d, ~420 MB): a different architecture from the MiniLM baseline, so agreement is the stronger evidence | **BGE small en 1.5** (384d, ~130 MB): same dimension as MiniLM, different training data |
+| Corpus-vs-Model | **SmolLM2 135M** (~300 MB, 8 GB RAM): fastest, checks the run works | **GPT-2 124M** for a documented 2019 training set; **SmolLM2 360M** to test scale; **Qwen3 0.6B** (~1.2 GB, 16 GB RAM) for a 2025 model |
+| Translated Corpus | **French** or **German** for corpora with French or German theory in the canon | **Chinese** as the hardest test, furthest from English in script and grammar |
+
 ## Architecture
 
 ```
