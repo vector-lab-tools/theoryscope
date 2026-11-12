@@ -15,7 +15,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-7737-5586"
 repository-code: "https://github.com/vector-lab-tools/theoryscope"
 license: GPL-3.0-or-later
-version: "0.8.3"
+version: "0.8.4"
 date-released: 2026-11-12
 keywords:
   - critical theory
