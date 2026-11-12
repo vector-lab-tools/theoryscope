@@ -70,9 +70,15 @@ export function CorpusSourceProvider({ children }: { children: React.ReactNode }
   // Rehydrate from localStorage once on mount.
   useEffect(() => {
     const storedSelected = readJson<SelectedSource>(LOCALSTORAGE_KEY);
-    if (storedSelected) setSelectedState(storedSelected);
     const storedCreds = readJson<ZoteroCreds>(ZOTERO_CREDS_KEY);
     if (storedCreds) setZoteroCredsState(storedCreds);
+    // A Zotero selection without credentials would silently load Phase 0
+    // while the label still named the Zotero collection.
+    if (storedSelected?.kind === "zotero" && !storedCreds) {
+      writeJson(LOCALSTORAGE_KEY, DEFAULT_SELECTED);
+    } else if (storedSelected) {
+      setSelectedState(storedSelected);
+    }
     setHydrated(true);
   }, []);
 

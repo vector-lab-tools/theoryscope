@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCorpusSource } from "@/context/CorpusSourceContext";
 import { backendPost } from "@/hooks/useBackend";
 import type { ZoteroCollection } from "@/types/corpus-source";
@@ -121,20 +121,48 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
     }
   }, [zoteroCreds]);
 
+  const dirty =
+    step === "creds" &&
+    (libraryId.trim() !== (zoteroCreds?.library_id ?? "") ||
+      libraryType !== (zoteroCreds?.library_type ?? "user") ||
+      apiKey.trim() !== (zoteroCreds?.api_key ?? ""));
+  const canConnect = !busy && libraryId.trim() !== "" && apiKey.trim() !== "";
+  const [confirming, setConfirming] = useState(false);
+
+  const requestClose = useCallback(() => {
+    if (dirty) setConfirming(true);
+    else onClose();
+  }, [dirty, onClose]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (confirming) setConfirming(false);
+      else requestClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [confirming, requestClose]);
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
-      onClick={onClose}
+      onClick={requestClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="zotero-dialog-title"
     >
       <div
-        className="bg-ivory border border-ink/20 max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col"
+        className="relative bg-ivory border border-ink/20 max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <header className="px-5 py-4 border-b border-ink/10 flex items-center justify-between">
-          <h2 className="font-display text-lg text-ink">Zotero corpus source</h2>
+        <header className="shrink-0 px-5 py-4 border-b border-ink/10 flex items-center justify-between">
+          <h2 id="zotero-dialog-title" className="font-display text-lg text-ink">
+            Zotero corpus source
+          </h2>
           <button
             type="button"
-            onClick={onClose}
+            onClick={requestClose}
             className="text-ink/60 hover:text-ink text-sm"
             aria-label="Close"
           >
@@ -142,7 +170,7 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
           </button>
         </header>
 
-        <div className="p-5 overflow-y-auto space-y-4">
+        <div className="flex-1 min-h-0 p-5 overflow-y-auto space-y-4">
           {step === "creds" ? (
             <>
               <p className="text-sm text-ink/70 max-w-prose">
@@ -194,23 +222,6 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
                   {error}
                 </div>
               ) : null}
-              <div className="flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-3 py-1.5 text-sm border border-ink/20 bg-white/60 text-ink hover:bg-ivory/60"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => void fetchCollections()}
-                  disabled={busy || !libraryId.trim() || !apiKey.trim()}
-                  className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-gold-700"
-                >
-                  {busy ? "Connecting…" : "Connect"}
-                </button>
-              </div>
             </>
           ) : (
             <>
@@ -233,7 +244,7 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
                     type="button"
                     onClick={() => void reloadCollections()}
                     disabled={busy}
-                    className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:bg-gold-700"
+                    className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:opacity-90"
                   >
                     {busy ? "Loading…" : "Load collections"}
                   </button>
@@ -265,6 +276,74 @@ function ZoteroDialog({ onClose, hasCreds }: { onClose: () => void; hasCreds: bo
             </>
           )}
         </div>
+
+        <footer className="shrink-0 border-t border-ink/10 px-5 py-3 flex items-center justify-between gap-3">
+          <span className="text-xs text-ink/60">
+            {dirty ? "Unsaved changes" : ""}
+          </span>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={requestClose}
+              className="px-3 py-1.5 text-sm border border-ink/20 bg-white/60 text-ink hover:bg-white"
+            >
+              {step === "creds" ? "Cancel" : "Close"}
+            </button>
+            {step === "creds" ? (
+              <button
+                type="button"
+                onClick={() => void fetchCollections()}
+                disabled={!canConnect}
+                className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:opacity-90"
+              >
+                {busy ? "Connecting…" : "Save and connect"}
+              </button>
+            ) : null}
+          </div>
+        </footer>
+
+        {confirming ? (
+          <div className="absolute inset-0 bg-ink/30 flex items-center justify-center p-4">
+            <div
+              role="alertdialog"
+              aria-labelledby="zotero-unsaved-title"
+              className="bg-ivory border border-ink/20 shadow-xl max-w-sm w-full p-5 space-y-4"
+            >
+              <p id="zotero-unsaved-title" className="text-sm text-ink">
+                You have changed your Zotero credentials without connecting.
+                Keep them?
+              </p>
+              <div className="flex flex-wrap justify-end gap-2">
+                <button
+                  type="button"
+                  autoFocus
+                  onClick={() => setConfirming(false)}
+                  className="px-3 py-1.5 text-sm border border-ink/20 bg-white/60 text-ink hover:bg-white"
+                >
+                  Keep editing
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-3 py-1.5 text-sm border border-ink/20 bg-white/60 text-ink hover:bg-white"
+                >
+                  Discard
+                </button>
+                <button
+                  type="button"
+                  disabled={!canConnect}
+                  onClick={() => {
+                    setConfirming(false);
+                    void fetchCollections();
+                  }}
+                  className="px-3 py-1.5 text-sm bg-gold text-ivory uppercase tracking-wide disabled:opacity-50 hover:opacity-90"
+                >
+                  Save and connect
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
