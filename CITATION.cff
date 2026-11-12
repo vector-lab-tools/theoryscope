@@ -5,6 +5,8 @@ abstract: >-
   Renormalisation group theory and eigenvector analysis brought to intellectual history
   and critical theory as a critical method, applied to a corpus of theoretical texts.
   Part of the Vector Lab family of research instruments.
+  Built at Copenhagen Business School, Denmark, during an Otto Mønsted Visiting Professorship
+  in 2026. The support of the Otto Mønsted Fond (grant 25-12-1849) is gratefully acknowledged.
 type: software
 authors:
   - family-names: Berry
@@ -13,8 +15,8 @@ authors:
     orcid: "https://orcid.org/0000-0002-7737-5586"
 repository-code: "https://github.com/vector-lab-tools/theoryscope"
 license: GPL-3.0-or-later
-version: "0.8.2"
-date-released: 2026-10-29
+version: "0.8.3"
+date-released: 2026-11-12
 keywords:
   - critical theory
   - intellectual history

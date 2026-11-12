@@ -21,7 +21,7 @@
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
-**Version:** 0.8.2
+**Version:** 0.8.3
 **Date:** 17 April 2026
 **Licence:** GPL-3.0-or-later
 
@@ -350,4 +350,4 @@ Each release of Theoryscope is archived on Zenodo. The concept DOI below always 
 
 Suggested citation:
 
-> Berry, D. M. (2026). *Theoryscope: a renormalisation-group workbench for corpora of theoretical texts* (version 0.8.2) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23715027
+> Berry, D. M. (2026). *Theoryscope: a renormalisation-group workbench for corpora of theoretical texts* (version 0.8.3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23715027
