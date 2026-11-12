@@ -97,7 +97,7 @@
 
       <div class="trouble">
         <h3>First run is slow.</h3>
-        <p>The default embedding model (<span class="mono">all-MiniLM-L6-v2</span>, around 90 MB) downloads on first use. Subsequent runs are offline. The Embedding Dependence Probe downloads <span class="mono">all-mpnet-base-v2</span> (around 420 MB) and <span class="mono">BAAI/bge-small-en-v1.5</span> (around 130 MB) when first selected. The Corpus-vs-Model Probe downloads a small generative model (SmolLM2-135M at around 270 MB, SmolLM2-360M at around 720 MB, GPT-2 at around 500 MB).</p>
+        <p>The default embedding model (<span class="mono">all-MiniLM-L6-v2</span>, around 90 MB) downloads on first use. Subsequent runs are offline. The Embedding Dependence Probe downloads <span class="mono">all-mpnet-base-v2</span> (around 420 MB) and <span class="mono">BAAI/bge-small-en-v1.5</span> (around 130 MB) when first selected. The Translated Corpus Probe downloads a Marian model from Helsinki-NLP (around 300 MB) for each target language (French, German, Spanish, Chinese). The Corpus-vs-Model Probe downloads a small generative model (SmolLM2 135M at around 300 MB, GPT-2 124M at around 550 MB, SmolLM2 360M at around 750 MB, Qwen3 0.6B at around 1.2 GB).</p>
       </div>
 
       <div class="trouble">
@@ -107,7 +107,7 @@
 
       <div class="trouble">
         <h3>Out of memory on a large corpus.</h3>
-        <p>Embedding runs in batches but the final matrix is held in memory. A corpus of 5,000 abstracts under MiniLM (384-dim) is around 15 MB. The Corpus-vs-Model Probe is the heaviest operation; smaller models (SmolLM2-135M) fit comfortably on 8 GB RAM machines, the larger ones on 16 GB.</p>
+        <p>Embedding runs in batches but the final matrix is held in memory. A corpus of 5,000 abstracts under MiniLM (384-dim) is around 15 MB. The Corpus-vs-Model Probe is the heaviest operation; the smaller models (SmolLM2 135M, GPT-2) fit comfortably on 8 GB RAM machines; SmolLM2 360M and Qwen3 0.6B want 16 GB.</p>
       </div>
     </div>
   </section>

@@ -148,7 +148,7 @@ export function CorpusVsModelProbe() {
       {state === "loading" ? (
         <div className="p-8 border border-ink/10 bg-ivory/50 text-ink/70">
           Running the generative model over every document. First run
-          per model downloads ~300 MB – 1.5 GB from HuggingFace.
+          per model downloads ~300 MB – 1.2 GB from HuggingFace.
         </div>
       ) : null}
 
