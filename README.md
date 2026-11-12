@@ -15,11 +15,13 @@
 
 **A renormalisation-group workbench for corpora of theoretical texts.**
 
-**Docs & how-to:** [vector-lab-tools.github.io/theoryscope](https://vector-lab-tools.github.io/theoryscope/) — includes a step-by-step Zotero API key walkthrough.
+**Docs & how-to:** [vector-lab-tools.github.io/theoryscope](https://vector-lab-tools.github.io/theoryscope/), including a step-by-step Zotero API key walkthrough.
+
+**FAQ:** API keys, local models and setup questions across all Vector Lab instruments are answered in the [Vector Lab FAQ](https://vector-lab-tools.github.io/faq.html).
 
 **Author:** David M. Berry
 **Institution:** University of Sussex
-**Version:** 0.8.0
+**Version:** 0.8.2
 **Date:** 17 April 2026
 **Licence:** GPL-3.0-or-later
 
